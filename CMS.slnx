@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="CMS/CMS.csproj" />
+  <Project Path="DBL/DBL.csproj" />
+</Solution>

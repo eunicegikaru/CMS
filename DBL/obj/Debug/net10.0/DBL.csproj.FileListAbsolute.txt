@@ -1,0 +1,4 @@
+C:\Users\ADMIN\source\repos\CMS\DBL\obj\Debug\net10.0\DBL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ADMIN\source\repos\CMS\DBL\obj\Debug\net10.0\DBL.AssemblyInfoInputs.cache
+C:\Users\ADMIN\source\repos\CMS\DBL\obj\Debug\net10.0\DBL.AssemblyInfo.cs
+C:\Users\ADMIN\source\repos\CMS\DBL\obj\Debug\net10.0\DBL.csproj.CoreCompileInputs.cache

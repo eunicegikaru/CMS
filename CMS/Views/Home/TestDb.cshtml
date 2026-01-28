@@ -1,0 +1,15 @@
+﻿@* @{
+    ViewData["Title"] = "Database Connection Test";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div style="padding:20px; font-size:18px; color:@(ViewBag.DbStatus.StartsWith("✅") ? "green" : "red");">
+    @ViewBag.DbStatus
+</div>
+
+<hr />
+
+<p>
+    Refresh the page to test the connection again.
+</p> *@
