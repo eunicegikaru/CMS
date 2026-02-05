@@ -3,68 +3,116 @@
   "WorkspaceRootPath": "C:\\Users\\ADMIN\\source\\repos\\CMS\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|c:\\users\\admin\\source\\repos\\cms\\cms\\cms.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
-      "RelativeMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|solutionrelative:cms\\cms.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+      "AbsoluteMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|c:\\users\\admin\\source\\repos\\cms\\cms\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|solutionrelative:cms\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|c:\\users\\admin\\source\\repos\\cms\\cms\\cms.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|solutionrelative:cms\\cms.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|c:\\users\\admin\\source\\repos\\cms\\dbl\\bl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|solutionrelative:dbl\\bl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|c:\\users\\admin\\source\\repos\\cms\\cms\\viewmodels\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|solutionrelative:cms\\viewmodels\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|c:\\users\\admin\\source\\repos\\cms\\dbl\\services\\ilogservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|solutionrelative:dbl\\services\\ilogservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|c:\\users\\admin\\source\\repos\\cms\\dbl\\models\\users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|solutionrelative:dbl\\models\\users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|c:\\users\\admin\\source\\repos\\cms\\cms\\views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|solutionrelative:cms\\views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|c:\\users\\admin\\source\\repos\\cms\\cms\\viewmodels\\registerviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|solutionrelative:cms\\viewmodels\\registerviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|c:\\users\\admin\\source\\repos\\cms\\cms\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|solutionrelative:cms\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|c:\\users\\admin\\source\\repos\\cms\\cms\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|solutionrelative:cms\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|c:\\users\\admin\\source\\repos\\cms\\dbl\\services\\emailservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|solutionrelative:dbl\\services\\emailservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|c:\\users\\admin\\source\\repos\\cms\\dbl\\services\\logservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|solutionrelative:dbl\\services\\logservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|c:\\users\\admin\\source\\repos\\cms\\cms\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|solutionrelative:cms\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|c:\\users\\admin\\source\\repos\\cms\\cms\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|solutionrelative:cms\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|c:\\users\\admin\\source\\repos\\cms\\cms\\views\\auth\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|solutionrelative:cms\\views\\auth\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|c:\\users\\admin\\source\\repos\\cms\\cms\\views\\auth\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|solutionrelative:cms\\views\\auth\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|c:\\users\\admin\\source\\repos\\cms\\cms\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|solutionrelative:cms\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|c:\\users\\admin\\source\\repos\\cms\\cms\\controllers\\employeescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|solutionrelative:cms\\controllers\\employeescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|c:\\users\\admin\\source\\repos\\cms\\dbl\\repositories\\clientsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|solutionrelative:dbl\\repositories\\clientsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|c:\\users\\admin\\source\\repos\\cms\\dbl\\dbl.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|solutionrelative:dbl\\dbl.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|c:\\users\\admin\\source\\repos\\cms\\dbl\\repositories\\iclientsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|solutionrelative:dbl\\repositories\\iclientsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|c:\\users\\admin\\source\\repos\\cms\\cms\\cms.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|solutionrelative:cms\\cms.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|c:\\users\\admin\\source\\repos\\cms\\cms\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|solutionrelative:cms\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|c:\\users\\admin\\source\\repos\\cms\\dbl\\services\\iemailservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|solutionrelative:dbl\\services\\iemailservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|c:\\users\\admin\\source\\repos\\cms\\dbl\\models\\users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|solutionrelative:dbl\\models\\users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|c:\\users\\admin\\source\\repos\\cms\\cms\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|solutionrelative:cms\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|c:\\users\\admin\\source\\repos\\cms\\dbl\\repositories\\baserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|solutionrelative:dbl\\repositories\\baserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|c:\\users\\admin\\source\\repos\\cms\\cms\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|solutionrelative:cms\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|c:\\users\\admin\\source\\repos\\cms\\dbl\\services\\emailservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|solutionrelative:dbl\\services\\emailservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|c:\\users\\admin\\source\\repos\\cms\\dbl\\uow\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|solutionrelative:dbl\\uow\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|c:\\users\\admin\\source\\repos\\cms\\dbl\\dbl.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|solutionrelative:dbl\\dbl.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|c:\\users\\admin\\source\\repos\\cms\\cms\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|solutionrelative:cms\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|c:\\users\\admin\\source\\repos\\cms\\cms\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|solutionrelative:cms\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|c:\\users\\admin\\source\\repos\\cms\\cms\\views\\admin\\dashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|solutionrelative:cms\\views\\admin\\dashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|c:\\users\\admin\\source\\repos\\cms\\cms\\views\\shared\\_adminlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|solutionrelative:cms\\views\\shared\\_adminlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|c:\\users\\admin\\source\\repos\\cms\\cms\\controllers\\managercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|solutionrelative:cms\\controllers\\managercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|c:\\users\\admin\\source\\repos\\cms\\cms\\cms.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|solutionrelative:cms\\cms.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|c:\\users\\admin\\source\\repos\\cms\\cms\\viewmodels\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|solutionrelative:cms\\viewmodels\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|c:\\users\\admin\\source\\repos\\cms\\cms\\viewmodels\\registerviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|solutionrelative:cms\\viewmodels\\registerviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|c:\\users\\admin\\source\\repos\\cms\\dbl\\services\\iemailservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|solutionrelative:dbl\\services\\iemailservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|c:\\users\\admin\\source\\repos\\cms\\cms\\views\\home\\testdb.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -79,10 +127,6 @@
       "RelativeMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|solutionrelative:cms\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|c:\\users\\admin\\source\\repos\\cms\\cms\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|solutionrelative:cms\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|c:\\users\\admin\\source\\repos\\cms\\cms\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|solutionrelative:cms\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -91,28 +135,12 @@
       "RelativeMoniker": "D:0:0:{4E602B07-97E1-7A0A-4EB1-ECD52404957F}|CMS\\CMS.csproj|solutionrelative:cms\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|c:\\users\\admin\\source\\repos\\cms\\dbl\\repositories\\baserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|solutionrelative:dbl\\repositories\\baserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|c:\\users\\admin\\source\\repos\\cms\\dbl\\bl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|solutionrelative:dbl\\bl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|c:\\users\\admin\\source\\repos\\cms\\dbl\\dbl.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
       "RelativeMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|solutionrelative:dbl\\dbl.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|c:\\users\\admin\\source\\repos\\cms\\dbl\\uow\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|solutionrelative:dbl\\uow\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|c:\\users\\admin\\source\\repos\\cms\\dbl\\uow\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|solutionrelative:dbl\\uow\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|c:\\users\\admin\\source\\repos\\cms\\dbl\\repositories\\iclientsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|solutionrelative:dbl\\repositories\\iclientsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A8BB8FB6-BAE1-4351-5E49-36A66C9848AD}|DBL\\DBL.csproj|c:\\users\\admin\\source\\repos\\cms\\dbl\\services\\iuserservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -130,157 +158,152 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "CMS",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\CMS.csproj",
-              "RelativeDocumentMoniker": "CMS\\CMS.csproj",
-              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\CMS.csproj",
-              "RelativeToolTip": "CMS\\CMS.csproj",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-01-28T17:12:00.882Z",
+              "DocumentIndex": 2,
+              "Title": "ILogServices.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Services\\ILogServices.cs",
+              "RelativeDocumentMoniker": "DBL\\Services\\ILogServices.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Services\\ILogServices.cs",
+              "RelativeToolTip": "DBL\\Services\\ILogServices.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-05T13:37:30.383Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "RegisterViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\ViewModels\\RegisterViewModel.cs",
-              "RelativeDocumentMoniker": "CMS\\ViewModels\\RegisterViewModel.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\ViewModels\\RegisterViewModel.cs",
-              "RelativeToolTip": "CMS\\ViewModels\\RegisterViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAgAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "LogServices.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Services\\LogServices.cs",
+              "RelativeDocumentMoniker": "DBL\\Services\\LogServices.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Services\\LogServices.cs",
+              "RelativeToolTip": "DBL\\Services\\LogServices.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-28T12:51:42.823Z"
+              "WhenOpened": "2026-02-05T13:36:59.43Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Login.cshtml",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Views\\Account\\Login.cshtml",
-              "RelativeDocumentMoniker": "CMS\\Views\\Account\\Login.cshtml",
-              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Views\\Account\\Login.cshtml",
-              "RelativeToolTip": "CMS\\Views\\Account\\Login.cshtml",
-              "ViewState": "AgIAABsAAAAAAAAAAAAAAAAAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-28T12:40:21.044Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 0,
               "Title": "AuthController.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "CMS\\Controllers\\AuthController.cs",
               "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Controllers\\AuthController.cs",
               "RelativeToolTip": "CMS\\Controllers\\AuthController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-28T12:20:50.199Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "EmailServices.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Services\\EmailServices.cs",
-              "RelativeDocumentMoniker": "DBL\\Services\\EmailServices.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Services\\EmailServices.cs",
-              "RelativeToolTip": "DBL\\Services\\EmailServices.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-21T16:35:36.624Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Program.cs",
-              "RelativeDocumentMoniker": "CMS\\Program.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Program.cs",
-              "RelativeToolTip": "CMS\\Program.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABkAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-20T13:37:47.573Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Users.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Models\\Users.cs",
-              "RelativeDocumentMoniker": "DBL\\Models\\Users.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Models\\Users.cs",
-              "RelativeToolTip": "DBL\\Models\\Users.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAmwBEAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-28T11:21:05.458Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "LoginViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\ViewModels\\LoginViewModel.cs",
-              "RelativeDocumentMoniker": "CMS\\ViewModels\\LoginViewModel.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\ViewModels\\LoginViewModel.cs",
-              "RelativeToolTip": "CMS\\ViewModels\\LoginViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-28T12:49:21.304Z",
+              "WhenOpened": "2026-01-28T12:20:50.199Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "ClientsRepository.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Repositories\\ClientsRepository.cs",
-              "RelativeDocumentMoniker": "DBL\\Repositories\\ClientsRepository.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Repositories\\ClientsRepository.cs",
-              "RelativeToolTip": "DBL\\Repositories\\ClientsRepository.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAIwDEAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-21T16:26:02.042Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 4,
               "Title": "AccountController.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Controllers\\AccountController.cs",
               "RelativeDocumentMoniker": "CMS\\Controllers\\AccountController.cs",
               "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Controllers\\AccountController.cs",
               "RelativeToolTip": "CMS\\Controllers\\AccountController.cs",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAYwDgAAAAxAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAF0AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-28T11:41:22.347Z"
+              "WhenOpened": "2026-01-28T11:41:22.347Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "CMS\\Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "CMS\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-20T13:37:58.11Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Views\\Auth\\Login.cshtml",
+              "RelativeDocumentMoniker": "CMS\\Views\\Auth\\Login.cshtml",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Views\\Auth\\Login.cshtml",
+              "RelativeToolTip": "CMS\\Views\\Auth\\Login.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-28T12:40:21.044Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "Bl.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Bl.cs",
+              "RelativeDocumentMoniker": "DBL\\Bl.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Bl.cs",
+              "RelativeToolTip": "DBL\\Bl.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-20T13:37:03.908Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "EmployeesController.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Controllers\\EmployeesController.cs",
+              "RelativeDocumentMoniker": "CMS\\Controllers\\EmployeesController.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Controllers\\EmployeesController.cs",
+              "RelativeToolTip": "CMS\\Controllers\\EmployeesController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-29T13:26:46.655Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
               "Title": "CMS.csproj",
               "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\CMS.csproj",
               "RelativeDocumentMoniker": "CMS\\CMS.csproj",
               "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\CMS.csproj",
               "RelativeToolTip": "CMS\\CMS.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-01-20T13:37:19.025Z",
+              "WhenOpened": "2026-01-20T13:37:19.025Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Register.cshtml",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Views\\Auth\\Register.cshtml",
+              "RelativeDocumentMoniker": "CMS\\Views\\Auth\\Register.cshtml",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Views\\Auth\\Register.cshtml",
+              "RelativeToolTip": "CMS\\Views\\Auth\\Register.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEEAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-29T11:40:31.369Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "DBL.csproj",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\DBL.csproj",
-              "RelativeDocumentMoniker": "DBL\\DBL.csproj",
-              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\DBL.csproj",
-              "RelativeToolTip": "DBL\\DBL.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-01-21T16:21:31.432Z"
+              "DocumentIndex": 9,
+              "Title": "ClientsRepository.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Repositories\\ClientsRepository.cs",
+              "RelativeDocumentMoniker": "DBL\\Repositories\\ClientsRepository.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Repositories\\ClientsRepository.cs",
+              "RelativeToolTip": "DBL\\Repositories\\ClientsRepository.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAQwEEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-21T16:26:02.042Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 12,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\appsettings.json",
               "RelativeDocumentMoniker": "CMS\\appsettings.json",
@@ -292,150 +315,55 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "IEmailServices.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Services\\IEmailServices.cs",
-              "RelativeDocumentMoniker": "DBL\\Services\\IEmailServices.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Services\\IEmailServices.cs",
-              "RelativeToolTip": "DBL\\Services\\IEmailServices.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAKAAAAAAAAAA==",
+              "DocumentIndex": 10,
+              "Title": "IClientsRepository.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Repositories\\IClientsRepository.cs",
+              "RelativeDocumentMoniker": "DBL\\Repositories\\IClientsRepository.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Repositories\\IClientsRepository.cs",
+              "RelativeToolTip": "DBL\\Repositories\\IClientsRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-21T16:37:05.71Z"
+              "WhenOpened": "2026-01-21T16:35:02.725Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "HomeController.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Controllers\\HomeController.cs",
-              "RelativeDocumentMoniker": "CMS\\Controllers\\HomeController.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Controllers\\HomeController.cs",
-              "RelativeToolTip": "CMS\\Controllers\\HomeController.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAIwCAAAAAlAAAAAAAAAA==",
+              "DocumentIndex": 13,
+              "Title": "Users.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Models\\Users.cs",
+              "RelativeDocumentMoniker": "DBL\\Models\\Users.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Models\\Users.cs",
+              "RelativeToolTip": "DBL\\Models\\Users.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-20T13:37:58.11Z"
+              "WhenOpened": "2026-01-28T11:21:05.458Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 16,
-              "Title": "TestDb.cshtml",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Views\\Home\\TestDb.cshtml",
-              "RelativeDocumentMoniker": "CMS\\Views\\Home\\TestDb.cshtml",
-              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Views\\Home\\TestDb.cshtml",
-              "RelativeToolTip": "CMS\\Views\\Home\\TestDb.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-23T17:04:01.895Z"
+              "Title": "EmailServices.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Services\\EmailServices.cs",
+              "RelativeDocumentMoniker": "DBL\\Services\\EmailServices.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Services\\EmailServices.cs",
+              "RelativeToolTip": "DBL\\Services\\EmailServices.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-21T16:35:36.624Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Program.cs",
+              "RelativeDocumentMoniker": "CMS\\Program.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Program.cs",
+              "RelativeToolTip": "CMS\\Program.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAIwCwAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-20T13:37:47.573Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 17,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Views\\Home\\Index.cshtml",
-              "RelativeDocumentMoniker": "CMS\\Views\\Home\\Index.cshtml",
-              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Views\\Home\\Index.cshtml",
-              "RelativeToolTip": "CMS\\Views\\Home\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-28T11:36:34.193Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "BaseRepository.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Repositories\\BaseRepository.cs",
-              "RelativeDocumentMoniker": "DBL\\Repositories\\BaseRepository.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Repositories\\BaseRepository.cs",
-              "RelativeToolTip": "DBL\\Repositories\\BaseRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAA4AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-21T16:33:06.275Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "Bl.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Bl.cs",
-              "RelativeDocumentMoniker": "DBL\\Bl.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Bl.cs",
-              "RelativeToolTip": "DBL\\Bl.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAA4AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-20T13:37:03.908Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "_ViewStart.cshtml",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Views\\_ViewStart.cshtml",
-              "RelativeDocumentMoniker": "CMS\\Views\\_ViewStart.cshtml",
-              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Views\\_ViewStart.cshtml",
-              "RelativeToolTip": "CMS\\Views\\_ViewStart.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-23T17:09:22.039Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "CMS\\Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "CMS\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-23T17:09:33.411Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "launchSettings.json",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Properties\\launchSettings.json",
-              "RelativeDocumentMoniker": "CMS\\Properties\\launchSettings.json",
-              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Properties\\launchSettings.json",
-              "RelativeToolTip": "CMS\\Properties\\launchSettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-01-22T13:31:05.158Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "_ViewImports.cshtml",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Views\\_ViewImports.cshtml",
-              "RelativeDocumentMoniker": "CMS\\Views\\_ViewImports.cshtml",
-              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Views\\_ViewImports.cshtml",
-              "RelativeToolTip": "CMS\\Views\\_ViewImports.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-23T17:09:26.619Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "DBL",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\DBL.csproj",
-              "RelativeDocumentMoniker": "DBL\\DBL.csproj",
-              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\DBL.csproj",
-              "RelativeToolTip": "DBL\\DBL.csproj",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-01-23T14:36:37.818Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "IUnitOfWork.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\UOW\\IUnitOfWork.cs",
-              "RelativeDocumentMoniker": "DBL\\UOW\\IUnitOfWork.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\UOW\\IUnitOfWork.cs",
-              "RelativeToolTip": "DBL\\UOW\\IUnitOfWork.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-21T16:34:37.347Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
               "Title": "UnitOfWork.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\UOW\\UnitOfWork.cs",
               "RelativeDocumentMoniker": "DBL\\UOW\\UnitOfWork.cs",
@@ -447,19 +375,221 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "IClientsRepository.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Repositories\\IClientsRepository.cs",
-              "RelativeDocumentMoniker": "DBL\\Repositories\\IClientsRepository.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Repositories\\IClientsRepository.cs",
-              "RelativeToolTip": "DBL\\Repositories\\IClientsRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAnAAAAAAAAAA==",
+              "DocumentIndex": 14,
+              "Title": "BaseRepository.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Repositories\\BaseRepository.cs",
+              "RelativeDocumentMoniker": "DBL\\Repositories\\BaseRepository.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Repositories\\BaseRepository.cs",
+              "RelativeToolTip": "DBL\\Repositories\\BaseRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-21T16:35:02.725Z"
+              "WhenOpened": "2026-01-21T16:33:06.275Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "DBL.csproj",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\DBL.csproj",
+              "RelativeDocumentMoniker": "DBL\\DBL.csproj",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\DBL.csproj",
+              "RelativeToolTip": "DBL\\DBL.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-01-21T16:21:31.432Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "CMS\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "CMS\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-23T17:09:33.411Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "AdminController.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Controllers\\AdminController.cs",
+              "RelativeDocumentMoniker": "CMS\\Controllers\\AdminController.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Controllers\\AdminController.cs",
+              "RelativeToolTip": "CMS\\Controllers\\AdminController.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABQAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-29T13:26:01.765Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "ManagerController.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Controllers\\ManagerController.cs",
+              "RelativeDocumentMoniker": "CMS\\Controllers\\ManagerController.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Controllers\\ManagerController.cs",
+              "RelativeToolTip": "CMS\\Controllers\\ManagerController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-29T13:26:24.474Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "_AdminLayout.cshtml",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Views\\Shared\\_AdminLayout.cshtml",
+              "RelativeDocumentMoniker": "CMS\\Views\\Shared\\_AdminLayout.cshtml",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Views\\Shared\\_AdminLayout.cshtml",
+              "RelativeToolTip": "CMS\\Views\\Shared\\_AdminLayout.cshtml",
+              "ViewState": "AgIAABgAAAAAAAAAAAAQwDQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-29T14:25:46.843Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "Dashboard.cshtml",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Views\\Admin\\Dashboard.cshtml",
+              "RelativeDocumentMoniker": "CMS\\Views\\Admin\\Dashboard.cshtml",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Views\\Admin\\Dashboard.cshtml",
+              "RelativeToolTip": "CMS\\Views\\Admin\\Dashboard.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-29T14:26:53.712Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "CMS",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\CMS.csproj",
+              "RelativeDocumentMoniker": "CMS\\CMS.csproj",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\CMS.csproj",
+              "RelativeToolTip": "CMS\\CMS.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-01-28T17:12:00.882Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "LoginViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\ViewModels\\LoginViewModel.cs",
+              "RelativeDocumentMoniker": "CMS\\ViewModels\\LoginViewModel.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\ViewModels\\LoginViewModel.cs",
+              "RelativeToolTip": "CMS\\ViewModels\\LoginViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T12:49:21.304Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "RegisterViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\ViewModels\\RegisterViewModel.cs",
+              "RelativeDocumentMoniker": "CMS\\ViewModels\\RegisterViewModel.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\ViewModels\\RegisterViewModel.cs",
+              "RelativeToolTip": "CMS\\ViewModels\\RegisterViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T12:51:42.823Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "IEmailServices.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Services\\IEmailServices.cs",
+              "RelativeDocumentMoniker": "DBL\\Services\\IEmailServices.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Services\\IEmailServices.cs",
+              "RelativeToolTip": "DBL\\Services\\IEmailServices.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-21T16:37:05.71Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 28,
+              "Title": "TestDb.cshtml",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Views\\Home\\TestDb.cshtml",
+              "RelativeDocumentMoniker": "CMS\\Views\\Home\\TestDb.cshtml",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Views\\Home\\TestDb.cshtml",
+              "RelativeToolTip": "CMS\\Views\\Home\\TestDb.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-23T17:04:01.895Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "CMS\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "CMS\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-28T11:36:34.193Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "_ViewStart.cshtml",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Views\\_ViewStart.cshtml",
+              "RelativeDocumentMoniker": "CMS\\Views\\_ViewStart.cshtml",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Views\\_ViewStart.cshtml",
+              "RelativeToolTip": "CMS\\Views\\_ViewStart.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-23T17:09:22.039Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "CMS\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Properties\\launchSettings.json",
+              "RelativeToolTip": "CMS\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-01-22T13:31:05.158Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "_ViewImports.cshtml",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Views\\_ViewImports.cshtml",
+              "RelativeDocumentMoniker": "CMS\\Views\\_ViewImports.cshtml",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Views\\_ViewImports.cshtml",
+              "RelativeToolTip": "CMS\\Views\\_ViewImports.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-23T17:09:26.619Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "DBL",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\DBL.csproj",
+              "RelativeDocumentMoniker": "DBL\\DBL.csproj",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\DBL.csproj",
+              "RelativeToolTip": "DBL\\DBL.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-01-23T14:36:37.818Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "IUnitOfWork.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\UOW\\IUnitOfWork.cs",
+              "RelativeDocumentMoniker": "DBL\\UOW\\IUnitOfWork.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\UOW\\IUnitOfWork.cs",
+              "RelativeToolTip": "DBL\\UOW\\IUnitOfWork.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-21T16:34:37.347Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
               "Title": "IUserServices.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Services\\IUserServices.cs",
               "RelativeDocumentMoniker": "DBL\\Services\\IUserServices.cs",
@@ -471,7 +601,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 36,
               "Title": "UserServices.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\DBL\\Services\\UserServices.cs",
               "RelativeDocumentMoniker": "DBL\\Services\\UserServices.cs",
@@ -484,40 +614,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{56df62a4-05a3-4e5b-aa1a-99371ccfb997}"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "Orientation": 0,
-      "VerticalTabListWidth": 256,
-      "FloatingWindowState": {
-        "Id": "ee186912-2397-4d05-82cf-2181e28180fc",
-        "Display": 0,
-        "X": 258,
-        "Y": 814,
-        "Width": 1554,
-        "Height": 220,
-        "WindowState": 0
-      },
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Register.cshtml",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Views\\Account\\Register.cshtml",
-              "RelativeDocumentMoniker": "CMS\\Views\\Account\\Register.cshtml",
-              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\Views\\Account\\Register.cshtml",
-              "RelativeToolTip": "CMS\\Views\\Account\\Register.cshtml",
-              "ViewState": "AgIAADEAAAAAAAAAAAAAAA0AAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-28T12:39:32.945Z",
-              "EditorCaption": ""
             }
           ]
         }

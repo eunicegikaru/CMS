@@ -42,12 +42,7 @@ public class Program
 
         var app = builder.Build();
 
-        // Optional: Test DB connection at startup
-        //using (var scope = app.Services.CreateScope())
-        //{
-        //    var repo = scope.ServiceProvider.GetRequiredService<IClientsRepository>();
-        //    repo.TestConnection();
-        //}
+       
 
         // Configure middleware pipeline
         if (!app.Environment.IsDevelopment())

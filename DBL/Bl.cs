@@ -12,13 +12,21 @@ namespace DBL
         public ClientsRepository ClientRepository => (ClientsRepository)db.ClientsRepository;
 
 
+
+
         public Bl(string ConnectionString)
         {
             _connectionstring = ConnectionString;
             db = new UnitOfWork(_connectionstring);
         }
 
+        public Bl()
+        {
+        }
 
+        //public Bl()
+        //{
+        //}
 
         protected IDbConnection GetConnection()
         {

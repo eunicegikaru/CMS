@@ -1,22 +1,27 @@
 ﻿using CMS.ViewModels;
+using DBL;
 using DBL.Models;
 using DBL.Repositories;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using static CMS.Controllers.AuthController;
 
 public class AccountController : Controller
 {
+    private readonly Bl _bl;
     private readonly ClientsRepository _repo;
 
-    public AccountController(ClientsRepository repo)
+    public AccountController(ClientsRepository repo, Bl )
     {
+        _bl = new Bl
         _repo = repo;
 
     }
 
     [HttpGet]
+    [AllowAnonymous]
     public IActionResult Register()
     {
         return View();
@@ -40,11 +45,16 @@ public class AccountController : Controller
             FullName = model.FullName,
             Email = model.Email,
             PasswordHash = PasswordHelper.HashPassword(model.Password),
-            Role = "User"
+            Role = model.Role
         };
 
         await _repo.CreateUser(user);
-        return RedirectToAction("Login");
+        return user.Role switch
+        {
+            "Admin" => RedirectToAction("Dashboard", "Admin"),
+            "Manager" => RedirectToAction("Dashboard", "Manager"),
+            _ => RedirectToAction("Dashboard", "Client")
+        };
     }
 
     [HttpGet]
@@ -61,18 +71,21 @@ public class AccountController : Controller
 
         var user = await _repo.GetByEmail(model.Email);
 
-        if (user == null || user.PasswordHash != PasswordHelper.HashPassword(model.Password))
+        if (user == null || !PasswordHelper.VerifyPassword(model.Password, user.PasswordHash))
         {
             ModelState.AddModelError("", "Invalid login attempt");
             return View(model);
         }
 
+        // ✅ UPDATE DATABASE HERE
+        await _repo.UpdateLoginStats(user.Id);
+
         var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.Name, user.FullName),
-            new Claim(ClaimTypes.Email, user.Email),
-            new Claim(ClaimTypes.Role, user.Role)
-        };
+    {
+        new Claim(ClaimTypes.Name, user.FullName),
+        new Claim(ClaimTypes.Email, user.Email),
+        new Claim(ClaimTypes.Role, user.Role)
+    };
 
         var identity = new ClaimsIdentity(claims, "MyCookie");
         var principal = new ClaimsPrincipal(identity);
@@ -83,6 +96,13 @@ public class AccountController : Controller
             ExpiresUtc = DateTime.UtcNow.AddDays(7)
         });
 
-        return RedirectToAction("Dashboard", "Home");
+        return user.Role switch
+        {
+            "Admin" => RedirectToAction("Dashboard", "Admin"),
+            "Manager" => RedirectToAction("Dashboard", "Manager"),
+            _ => RedirectToAction("Dashboard", "Client")
+        };
     }
+
+
 }
