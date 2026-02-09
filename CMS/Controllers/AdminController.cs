@@ -1,31 +1,35 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿// Controllers/AdminController.cs
+using DBL.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
-[Authorize(Roles = "Admin")]
-public class AdminController : Controller
+namespace CMS.Controllers
 {
-    public IActionResult Dashboard()
+    [Authorize(Roles = "Admin")]
+    public class AdminController : Controller
     {
-        return View();
-    }
-    public IActionResult Employees()
-    {
-        return View();
-    }
-    public IActionResult projects()
-    {
-        return View();
-    }
-    public IActionResult invoices()
-    {
-        return View();
-    }
-    public IActionResult analytics()
-    {
-        return View();
-    }
-    public IActionResult Audits()
-    {
-        return View();
+        private readonly IClientsRepository _clientsRepo;
+
+        public AdminController(IClientsRepository clientsRepo)
+        {
+            _clientsRepo = clientsRepo;
+        }
+
+        public IActionResult Dashboard()
+        {
+            ViewBag.UserName = User.Identity.Name;
+            ViewBag.UserRole = User.FindFirst(ClaimTypes.Role)?.Value;
+            return View();
+        }
+
+        public async Task<IActionResult> Users(string role = null, int page = 1)
+        {
+            var (users, totalCount) = await _clientsRepo.GetAllUsersByRole(role, page, 20);
+            ViewBag.TotalCount = totalCount;
+            ViewBag.CurrentPage = page;
+            ViewBag.SelectedRole = role;
+            return View(users);
+        }
     }
 }

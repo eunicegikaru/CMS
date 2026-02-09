@@ -4,14 +4,17 @@ namespace CMS.ViewModels
 {
     public class LoginViewModel
     {
-        [Required]
-        [EmailAddress]
-        public string? Email { get; set; }
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "Invalid email address")]
+        [Display(Name = "Email Address")]
+        public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
-        public string? Password { get; set; }
+        [Display(Name = "Password")]
+        public string Password { get; set; }
 
+        [Display(Name = "Remember me")]
         public bool RememberMe { get; set; }
     }
 }

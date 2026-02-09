@@ -1,26 +1,63 @@
-﻿using System;
+﻿// DBL/Repositories/BaseRepository.cs
+using Dapper;
 using System.Data;
+using Microsoft.Data.SqlClient;
 
 
 namespace DBL.Repositories
 {
-    public class BaseRepository
+    public abstract class BaseRepository
     {
-        private readonly string _defaultConnection;
+        private readonly Bl _context;
 
-        public BaseRepository(string defaultConnection)
+        protected BaseRepository(Bl context)
         {
-            _defaultConnection = defaultConnection;
+            _context = context;
         }
 
-        public string GetAllStatement(string tableName)
+        protected async Task<T> ExecuteScalarAsync<T>(string storedProcedure, object parameters = null)
         {
-            return $"SELECT * FROM {tableName}";
+            using var connection = _context.CreateConnection();
+            return await connection.ExecuteScalarAsync<T>(
+                storedProcedure,
+                parameters,
+                commandType: CommandType.StoredProcedure);
         }
 
-        protected IDbConnection CreateConnection()
+        protected async Task<int> ExecuteAsync(string storedProcedure, object parameters = null)
         {
-            return new Microsoft.Data.SqlClient.SqlConnection (_defaultConnection);
+            using var connection = _context.CreateConnection();
+            return await connection.ExecuteAsync(
+                storedProcedure,
+                parameters,
+                commandType: CommandType.StoredProcedure);
+        }
+
+        protected async Task<T> QueryFirstOrDefaultAsync<T>(string storedProcedure, object parameters = null)
+        {
+            using var connection = _context.CreateConnection();
+            return await connection.QueryFirstOrDefaultAsync<T>(
+                storedProcedure,
+                parameters,
+                commandType: CommandType.StoredProcedure);
+        }
+
+        protected async Task<IEnumerable<T>> QueryAsync<T>(string storedProcedure, object parameters = null)
+        {
+            using var connection = _context.CreateConnection();
+            return await connection.QueryAsync<T>(
+                storedProcedure,
+                parameters,
+                commandType: CommandType.StoredProcedure);
+        }
+
+        protected async Task<SqlMapper.GridReader> QueryMultipleAsync(string storedProcedure, object parameters = null)
+        {
+            using var connection = _context.CreateConnection();
+            return await connection.QueryMultipleAsync(
+                storedProcedure,
+                parameters,
+                commandType: CommandType.StoredProcedure);
         }
     }
 }

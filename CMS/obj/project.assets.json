@@ -609,6 +609,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "BCrypt.Net-Next": "4.0.3",
           "Dapper": "2.1.66",
           "Microsoft.Data.SqlClient": "6.1.4",
           "Microsoft.Extensions.Configuration.Abstractions": "10.0.2"

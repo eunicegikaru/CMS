@@ -1,12 +1,13 @@
-﻿// Controllers/ManagerController.cs
+﻿
+// Controllers/ClientController.cs
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace CMS.Controllers
 {
-    [Authorize(Roles = "Manager")]
-    public class ManagerController : Controller
+    [Authorize(Roles = "Client")]
+    public class ClientController : Controller
     {
         public IActionResult Dashboard()
         {

@@ -5,22 +5,20 @@ using System.Text;
 
 namespace DBL.UOW
 {
-    public class UnitOfWork
-    {
-        private string connectionstring;
-        private IClientsRepository? clientRepository;
 
-        public UnitOfWork(string connectionstring)
+        public class UnitOfWork : IUnitOfWork
         {
-            this.connectionstring = connectionstring;
+            private readonly IClientsRepository _clientsRepository;
+
+            public UnitOfWork(string connectionstring)
+            {
+                if (string.IsNullOrWhiteSpace(connectionstring))
+                    throw new ArgumentNullException(nameof(connectionstring));
+
+                _clientsRepository = new ClientsRepository(connectionstring);
+            }
+
+            public IClientsRepository ClientsRepository => _clientsRepository;
         }
-        public IClientsRepository ClientsRepository
-        {
-            get { return clientRepository ?? (clientRepository = new ClientsRepository(connectionstring)); }
-        }
-        public void Reset()
-        {
-            clientRepository = null;
-        }
-    }
+    
 }

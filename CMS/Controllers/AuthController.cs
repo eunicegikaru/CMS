@@ -1,123 +1,232 @@
-﻿using AspNetCoreGeneratedDocument;
+﻿// CMS/Controllers/AuthController.cs
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using System.Security.Claims;
 using CMS.ViewModels;
 using DBL;
 using DBL.Models;
-using DBL.Repositories;
-using DBL.Services;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
+using DBL.Helpers;
 
 namespace CMS.Controllers
 {
     public class AuthController : Controller
     {
         private readonly Bl _bl;
-        private readonly ILogServices _log;
-        private readonly ClientsRepository _repo;
+        private readonly ILogger<AuthController> _logger;
+        private readonly IConfiguration _configuration;
 
-        public AuthController(ClientsRepository repo,  ILogServices log)
+        public AuthController(IConfiguration configuration, ILogger<AuthController> logger)
         {
-            _bl = new Bl();
-            _log = log;
-            _repo = repo;
+            _configuration = configuration;
+            _logger = logger;
+
+            // Initialize Bl with connection string from configuration
+            var connectionstring = _configuration.GetConnectionString("DefaultConnection");
+            _bl = new Bl(connectionstring);
         }
+
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Register()
         {
-            return View();
+            var model = new RegisterViewModel();
+            return View(model);
         }
 
         [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (!ModelState.IsValid)
-                return View(model);
-
-            var existing = await _repo.GetByEmail(model.Email);
-            if (existing != null)
             {
-                ModelState.AddModelError("", "Email already exists");
                 return View(model);
             }
 
-            var user = new Users
+            try
             {
-                FullName = model.FullName,
-                Email = model.Email,
-                PasswordHash = PasswordHelper.HashPassword(model.Password),
-                Role = model.Role
-            };
+                // Check if email already exists
+                var existingUser = await _bl.ClientRepository.GetByEmail(model.Email);
+                if (existingUser != null)
+                {
+                    ModelState.AddModelError("Email", "Email already exists");
+                    return View(model);
+                }
 
-            await _repo.CreateUser(user);
-            return user.Role switch
+                // Validate password
+                if (!PasswordHelper.IsValidPassword(model.Password))
+                {
+                    ModelState.AddModelError("Password", "Password must be at least 6 characters");
+                    return View(model);
+                }
+
+                // Validate role
+                if (!model.AvailableRoles.Contains(model.Role))
+                {
+                    ModelState.AddModelError("Role", "Invalid role selected");
+                    return View(model);
+                }
+
+                // Create user
+                var user = new Users
+                {
+                    FullName = model.FullName.Trim(),
+                    Email = model.Email.Trim().ToLower(),
+                    PasswordHash = PasswordHelper.HashPassword(model.Password),
+                    Role = model.Role,
+                    IsActive = true
+                };
+
+                var userId = await _bl.ClientRepository.CreateUser(user);
+
+                if (userId > 0)
+                {
+                    _logger.LogInformation($"User registered successfully: {user.Email}, Role: {user.Role}");
+
+                    // Optionally log user in immediately after registration
+                    await SignInUser(user);
+
+                    TempData["SuccessMessage"] = "Registration successful!";
+                    return RedirectToDashboard(user.Role);
+                }
+
+                ModelState.AddModelError("", "Registration failed. Please try again.");
+                return View(model);
+            }
+            catch (Exception ex)
             {
-                "Admin" => RedirectToAction("Dashboard", "Admin"),
-                "Manager" => RedirectToAction("Dashboard", "Manager"),
-                _ => RedirectToAction("Dashboard", "Client")
-            };
+                _logger.LogError(ex, $"Registration failed for email: {model.Email}");
+                ModelState.AddModelError("", $"Registration failed: {ex.Message}");
+                return View(model);
+            }
         }
 
         [HttpGet]
-        public IActionResult Login()
+        [AllowAnonymous]
+        public IActionResult Login(string returnUrl = null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
             if (!ModelState.IsValid)
-                return View(model);
-
-            var user = await _repo.GetByEmail(model.Email);
-
-            if (user == null || !PasswordHelper.VerifyPassword(model.Password, user.PasswordHash))
             {
-                ModelState.AddModelError("", "Invalid login attempt");
                 return View(model);
             }
 
-            // ✅ UPDATE DATABASE HERE
-            await _repo.UpdateLoginStats(user.Id);
-
-            var claims = new List<Claim>
-    {
-        new Claim(ClaimTypes.Name, user.FullName),
-        new Claim(ClaimTypes.Email, user.Email),
-        new Claim(ClaimTypes.Role, user.Role)
-    };
-
-            var identity = new ClaimsIdentity(claims, "MyCookie");
-            var principal = new ClaimsPrincipal(identity);
-
-            await HttpContext.SignInAsync("MyCookie", principal, new AuthenticationProperties
+            try
             {
-                IsPersistent = model.RememberMe,
-                ExpiresUtc = DateTime.UtcNow.AddDays(7)
-            });
+                // Get user by email
+                var user = await _bl.ClientRepository.GetByEmail(model.Email);
 
-            return user.Role switch
+                // Validate user
+                if (user == null)
+                {
+                    ModelState.AddModelError("", "Invalid email or password");
+                    return View(model);
+                }
+
+                if (!user.IsActive)
+                {
+                    ModelState.AddModelError("", "Account is deactivated. Please contact administrator.");
+                    return View(model);
+                }
+
+                // Verify password
+                if (!PasswordHelper.VerifyPassword(model.Password, user.PasswordHash))
+                {
+                    ModelState.AddModelError("", "Invalid email or password");
+                    return View(model);
+                }
+
+                // Update login statistics
+                await _bl.ClientRepository.UpdateLoginStats(user.Id);
+
+                // Create claims and sign in
+                await SignInUser(user, model.RememberMe);
+
+                _logger.LogInformation($"User logged in: {user.Email}, Role: {user.Role}");
+
+                if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                {
+                    return Redirect(returnUrl);
+                }
+
+                return RedirectToDashboard(user.Role);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Login failed for email: {model.Email}");
+                ModelState.AddModelError("", "Login failed. Please try again.");
+                return View(model);
+            }
+        }
+
+        private async Task SignInUser(Users user, bool rememberMe = false)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.FullName),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Role, user.Role),
+                new Claim("LastLogin", user.LastLogin?.ToString() ?? DateTime.UtcNow.ToString())
+            };
+
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            var authProperties = new AuthenticationProperties
+            {
+                IsPersistent = rememberMe,
+                ExpiresUtc = rememberMe ? DateTimeOffset.UtcNow.AddDays(7) : DateTimeOffset.UtcNow.AddHours(1)
+            };
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity),
+                authProperties);
+        }
+
+        private IActionResult RedirectToDashboard(string role)
+        {
+            return role switch
             {
                 "Admin" => RedirectToAction("Dashboard", "Admin"),
                 "Manager" => RedirectToAction("Dashboard", "Manager"),
-                _ => RedirectToAction("Dashboard", "Client")
+                "Client" => RedirectToAction("Dashboard", "Client"),
+                _ => RedirectToAction("Index", "Home")
             };
         }
-        public static class PasswordHelper
-        {
-            public static string HashPassword(string password)
-            {
-                return BCrypt.Net.BCrypt.HashPassword(password);
-            }
 
-            public static bool VerifyPassword(string password, string hash)
-            {
-                return BCrypt.Net.BCrypt.Verify(password, hash);
-            }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login", "Auth");
         }
 
+        [HttpGet]
+        [Authorize]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
     }
 }
