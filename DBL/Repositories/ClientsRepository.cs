@@ -4,29 +4,20 @@ using System.Data;
 using Microsoft.Data.SqlClient;
 using DBL.Models;
 
-
 namespace DBL.Repositories
 {
-   
     public class ClientsRepository : BaseRepository, IClientsRepository
     {
-        private readonly Bl context;
-        private string connectionstring;
-
-        public ClientsRepository(Bl context) : base(context)
-        {
-            this.context = context;
-        }
-
         public ClientsRepository(string connectionstring)
+            : base(connectionstring)
         {
-            this.connectionstring = connectionstring;
         }
 
         public async Task<int> CreateUser(Users user)
         {
-            using var connection = context.CreateConnection() as SqlConnection;
-            if (connection == null) throw new InvalidOperationException("Connection is not SqlConnection");
+            using var connection = CreateConnection() as SqlConnection;
+            if (connection == null)
+                throw new InvalidOperationException("Connection is not SqlConnection");
 
             var parameters = new DynamicParameters();
             parameters.Add("@FullName", user.FullName);
@@ -37,12 +28,12 @@ namespace DBL.Repositories
 
             try
             {
-                await connection.ExecuteAsync("sp_CreateUser",
+                await connection.ExecuteAsync(
+                    "sp_CreateUser",
                     parameters,
                     commandType: CommandType.StoredProcedure);
 
-                var userId = parameters.Get<int>("@UserId");
-                return userId;
+                return parameters.Get<int>("@UserId");
             }
             catch (SqlException ex) when (ex.Number == 51000)
             {
@@ -54,13 +45,13 @@ namespace DBL.Repositories
             }
         }
 
-        public async Task<Users> GetByEmail(string email)
+        public async Task<Users?> GetByEmail(string email)
         {
             var parameters = new { Email = email };
             return await QueryFirstOrDefaultAsync<Users>("sp_GetUserByEmail", parameters);
         }
 
-        public async Task<Users> GetById(int userId)
+        public async Task<Users?> GetById(int userId)
         {
             var parameters = new { UserId = userId };
             return await QueryFirstOrDefaultAsync<Users>("sp_GetUserById", parameters);
@@ -87,13 +78,13 @@ namespace DBL.Repositories
         }
 
         public async Task<(IEnumerable<Users> users, int totalCount)> GetAllUsersByRole(
-            string role = null,
+            string? role = null,
             int pageNumber = 1,
             int pageSize = 20)
         {
             var parameters = new
             {
-                Role = string.IsNullOrEmpty(role) ? (object)null : role,
+                Role = string.IsNullOrEmpty(role) ? (object?)null : role,
                 PageNumber = pageNumber,
                 PageSize = pageSize
             };

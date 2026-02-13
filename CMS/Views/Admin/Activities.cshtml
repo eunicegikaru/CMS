@@ -1,0 +1,314 @@
+﻿<!-- Views/Activity/Index.cshtml -->
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Activity Log</h1>
+        <div>
+            <button class="btn btn-success me-2" onclick="exportActivityLog()">
+                <i class="bi bi-download"></i> Export
+            </button>
+            <button class="btn btn-danger" onclick="clearActivityLog()">
+                <i class="bi bi-trash"></i> Clear Old Logs
+            </button>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="form-label">User</label>
+                    <select class="form-select" id="userFilter">
+                        <option value="">All Users</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Action Type</label>
+                    <select class="form-select" id="actionFilter">
+                        <option value="">All Actions</option>
+                        <option value="Created">Created</option>
+                        <option value="Updated">Updated</option>
+                        <option value="Deleted">Deleted</option>
+                        <option value="Viewed">Viewed</option>
+                        <option value="Downloaded">Downloaded</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Date From</label>
+                    <input type="date" class="form-control" id="dateFrom">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Date To</label>
+                    <input type="date" class="form-control" id="dateTo">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <button class="btn btn-primary" onclick="applyFilters()">
+                        <i class="bi bi-funnel"></i> Apply Filters
+                    </button>
+                    <button class="btn btn-secondary" onclick="resetFilters()">
+                        <i class="bi bi-arrow-counterclockwise"></i> Reset
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Activity Timeline -->
+    <div class="card shadow mb-4">
+        <div class="card-header">
+            <h6 class="m-0 font-weight-bold text-primary">Activity Timeline</h6>
+        </div>
+        <div class="card-body">
+            <div class="timeline" id="activityTimeline">
+                <!-- Timeline will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Activity Table -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover" id="activityTable">
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>User</th>
+                            <th>Action</th>
+                            <th>Entity Type</th>
+                            <th>Details</th>
+                            <th>IP Address</th>
+                        </tr>
+                    </thead>
+                    <tbody id="activityBody">
+                        <tr>
+                            <td colspan="6" class="text-center">Loading...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <nav aria-label="Page navigation" class="mt-3">
+                <ul class="pagination justify-content-center" id="pagination">
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let currentPage = 1;
+        let totalPages = 1;
+
+        $(document).ready(function() {
+            loadUsers();
+            loadActivities();
+        });
+
+        function loadUsers() {
+            $.get('/api/employee/getall', function(users) {
+                let options = '<option value="">All Users</option>';
+                users.forEach(function(user) {
+                    options += `<option value="${user.id}">${user.fullName}</option>`;
+                });
+                $('#userFilter').html(options);
+            });
+        }
+
+        function loadActivities(page = 1) {
+            let filters = {
+                userId: $('#userFilter').val(),
+                action: $('#actionFilter').val(),
+                dateFrom: $('#dateFrom').val(),
+                dateTo: $('#dateTo').val(),
+                page: page,
+                pageSize: 20
+            };
+
+            $.ajax({
+                url: '/api/activity/getall',
+                type: 'GET',
+                data: filters,
+                success: function(response) {
+                    displayActivities(response.data);
+                    displayTimeline(response.data);
+                    updatePagination(response.totalPages, response.currentPage);
+                }
+            });
+        }
+
+        function displayActivities(activities) {
+            let html = '';
+            if (activities && activities.length > 0) {
+                activities.forEach(function(act) {
+                    let actionClass = {
+                        'Created': 'success',
+                        'Updated': 'info',
+                        'Deleted': 'danger',
+                        'Viewed': 'primary',
+                        'Downloaded': 'warning'
+                    }[act.action] || 'secondary';
+
+                    html += `
+                        <tr>
+                            <td>${moment(act.timestamp).format('YYYY-MM-DD HH:mm:ss')}</td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar-circle bg-primary text-white me-2" style="width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                                        ${act.user ? act.user.fullName.charAt(0) : 'U'}
+                                    </div>
+                                    ${act.user ? act.user.fullName : 'Unknown'}
+                                </div>
+                            </td>
+                            <td><span class="badge bg-${actionClass}">${act.action}</span></td>
+                            <td>${act.entityType || '-'}</td>
+                            <td>${act.details || '-'}</td>
+                            <td><code>${act.ipAddress || 'N/A'}</code></td>
+                        </tr>
+                    `;
+                });
+            } else {
+                html = '<tr><td colspan="6" class="text-center">No activity found</td></tr>';
+            }
+            $('#activityBody').html(html);
+        }
+
+        function displayTimeline(activities) {
+            let html = '';
+            let grouped = groupByDate(activities);
+
+            for (let date in grouped) {
+                html += `
+                    <div class="timeline-date">
+                        <h6 class="text-primary">${moment(date).format('MMMM DD, YYYY')}</h6>
+                    </div>
+                `;
+
+                grouped[date].forEach(function(act) {
+                    let iconClass = {
+                        'Created': 'bi-plus-circle text-success',
+                        'Updated': 'bi-pencil text-info',
+                        'Deleted': 'bi-trash text-danger',
+                        'Viewed': 'bi-eye text-primary',
+                        'Downloaded': 'bi-download text-warning'
+                    }[act.action] || 'bi-circle';
+
+                    html += `
+                        <div class="timeline-item ms-3 mb-3">
+                            <div class="d-flex">
+                                <div class="timeline-icon me-3">
+                                    <i class="bi ${iconClass}"></i>
+                                </div>
+                                <div class="timeline-content">
+                                    <div class="d-flex justify-content-between">
+                                        <strong>${act.user ? act.user.fullName : 'Unknown'}</strong>
+                                        <small class="text-muted">${moment(act.timestamp).format('HH:mm')}</small>
+                                    </div>
+                                    <p class="mb-0">${act.details || act.action + ' ' + (act.entityType || '')}</p>
+                                    <small class="text-muted">IP: ${act.ipAddress || 'N/A'}</small>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            $('#activityTimeline').html(html || '<p class="text-center">No activity to display</p>');
+        }
+
+        function groupByDate(activities) {
+            let grouped = {};
+            activities.forEach(function(act) {
+                let date = moment(act.timestamp).format('YYYY-MM-DD');
+                if (!grouped[date]) {
+                    grouped[date] = [];
+                }
+                grouped[date].push(act);
+            });
+            return grouped;
+        }
+
+        function updatePagination(total, current) {
+            totalPages = total;
+            currentPage = current;
+
+            let html = '';
+            if (totalPages > 1) {
+                html += `<li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+                    <a class="page-link" href="#" onclick="changePage(${currentPage - 1})">Previous</a>
+                </li>`;
+
+                for (let i = 1; i <= totalPages; i++) {
+                    if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+                        html += `<li class="page-item ${i === currentPage ? 'active' : ''}">
+                            <a class="page-link" href="#" onclick="changePage(${i})">${i}</a>
+                        </li>`;
+                    } else if (i === currentPage - 3 || i === currentPage + 3) {
+                        html += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
+                    }
+                }
+
+                html += `<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+                    <a class="page-link" href="#" onclick="changePage(${currentPage + 1})">Next</a>
+                </li>`;
+            }
+
+            $('#pagination').html(html);
+        }
+
+        function changePage(page) {
+            if (page >= 1 && page <= totalPages) {
+                loadActivities(page);
+            }
+        }
+
+        function applyFilters() {
+            loadActivities(1);
+        }
+
+        function resetFilters() {
+            $('#userFilter').val('');
+            $('#actionFilter').val('');
+            $('#dateFrom').val('');
+            $('#dateTo').val('');
+            loadActivities(1);
+        }
+
+        function exportActivityLog() {
+            let filters = {
+                userId: $('#userFilter').val(),
+                action: $('#actionFilter').val(),
+                dateFrom: $('#dateFrom').val(),
+                dateTo: $('#dateTo').val()
+            };
+
+            let queryString = $.param(filters);
+            window.location.href = `/api/activity/export?${queryString}`;
+        }
+
+        function clearActivityLog() {
+            if (confirm('Are you sure you want to clear all activity logs older than 30 days?')) {
+                $.ajax({
+                    url: '/api/activity/clear',
+                    type: 'DELETE',
+                    success: function() {
+                        loadActivities();
+                        showNotification('Old logs cleared successfully', 'success');
+                    }
+                });
+            }
+        }
+
+        function showNotification(message, type) {
+            alert(message);
+        }
+    </script>
+}

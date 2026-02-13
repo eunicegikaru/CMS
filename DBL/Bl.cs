@@ -20,17 +20,18 @@ namespace DBL
             _connectionstring = connectionString;
             _db = new UnitOfWork(_connectionstring);
             _configuration = configuration;
-            _connectionstring = _configuration.GetConnectionString("DefaultConnection");
+            _connectionstring = configuration.GetConnectionString("DefaultConnection")
+    ?? throw new Exception("Connection string not found");
+
         }
 
-        public Bl()
-        {
-            // Default constructor if needed
-        }
 
-        public Bl(string? connectionString)
+
+        public Bl(string connectionString)
         {
-            _connectionstring = connectionString;
+            _connectionstring = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
+            _db = new UnitOfWork(_connectionstring);
+            _configuration = null!; // Using null-forgiving operator for IConfiguration
         }
 
         protected IDbConnection GetConnection()

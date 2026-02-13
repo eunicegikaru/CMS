@@ -23,13 +23,31 @@ namespace CMS.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Users(string role = null, int page = 1)
+        public IActionResult Employees()
         {
-            var (users, totalCount) = await _clientsRepo.GetAllUsersByRole(role, page, 20);
-            ViewBag.TotalCount = totalCount;
-            ViewBag.CurrentPage = page;
-            ViewBag.SelectedRole = role;
-            return View(users);
+            return View();
+        }
+        public IActionResult Activities()
+        {
+            return View();
+        }
+        public IActionResult Invoices()
+        {
+            return View();
+        }
+        public IActionResult Tasks()
+        {
+            return View();
+        }
+
+        public IActionResult Reports()
+        {
+            return View();
+        }
+
+        public IActionResult Analytics()
+        {
+            return View();
         }
     }
 }

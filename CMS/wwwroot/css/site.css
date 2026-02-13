@@ -29,3 +29,130 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+/* wwwroot/css/admin-custom.css */
+
+/* Timeline Styles */
+.timeline {
+    position: relative;
+    padding: 20px 0;
+}
+
+    .timeline::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 20px;
+        height: 100%;
+        width: 2px;
+        background: #e3e6f0;
+    }
+
+.timeline-item {
+    position: relative;
+    padding-left: 45px;
+}
+
+    .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: 13px;
+        top: 0;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: #4e73df;
+        border: 3px solid #fff;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+.timeline-date {
+    margin: 20px 0 10px;
+    padding-left: 20px;
+    font-weight: bold;
+}
+
+.timeline-icon {
+    width: 30px;
+    height: 30px;
+    background: #f8f9fc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #e3e6f0;
+}
+
+.timeline-content {
+    flex: 1;
+    background: #f8f9fc;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 3px solid #4e73df;
+}
+
+/* Avatar Circle */
+.avatar-circle {
+    width: 40px;
+    height: 40px;
+    background-color: #4e73df;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+}
+
+/* Status Badges */
+.badge {
+    padding: 0.5em 0.75em;
+    font-size: 0.75em;
+    font-weight: 600;
+}
+
+/* Card Hover Effects */
+.card {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+    .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0.5rem 2rem rgba(0,0,0,0.15);
+    }
+
+/* Progress Bars */
+.progress-sm {
+    height: 0.5rem;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 10px;
+}
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #a8a8a8;
+    }
+
+/* Print Styles */
+@media print {
+    .sidebar, .search-bar, .btn, .modal {
+        display: none !important;
+    }
+
+    #content-wrapper {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+}

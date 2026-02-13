@@ -1,0 +1,462 @@
+﻿<!-- Views/Task/Index.cshtml -->
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Task Management</h1>
+        <button class="btn btn-primary" onclick="openAssignTaskModal()">
+            <i class="bi bi-plus-circle"></i> Assign Task
+        </button>
+    </div>
+
+    <!-- Task Overview Cards -->
+    <div class="row">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card bg-primary text-white h-100">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-uppercase mb-1">Total Tasks</div>
+                            <div class="h5 mb-0 font-weight-bold" id="totalTasks">0</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-list-task fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card bg-success text-white h-100">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-uppercase mb-1">Completed</div>
+                            <div class="h5 mb-0 font-weight-bold" id="completedTasks">0</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-check-circle fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card bg-warning text-white h-100">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-uppercase mb-1">In Progress</div>
+                            <div class="h5 mb-0 font-weight-bold" id="inProgressTasks">0</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-arrow-repeat fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card bg-danger text-white h-100">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-uppercase mb-1">Overdue</div>
+                            <div class="h5 mb-0 font-weight-bold" id="overdueTasks">0</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-exclamation-triangle fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Task Tabs -->
+    <div class="card shadow mb-4">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs" id="taskTabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="list-tab" data-bs-toggle="tab" href="#listView">List View</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="calendar-tab" data-bs-toggle="tab" href="#calendarView">Calendar View</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="kanban-tab" data-bs-toggle="tab" href="#kanbanView">Kanban Board</a>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body">
+            <div class="tab-content">
+                <!-- List View -->
+                <div class="tab-pane fade show active" id="listView">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="tasksTable">
+                            <thead>
+                                <tr>
+                                    <th>Task ID</th>
+                                    <th>Title</th>
+                                    <th>Assigned To</th>
+                                    <th>Priority</th>
+                                    <th>Due Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="taskTableBody">
+                                <tr>
+                                    <td colspan="7" class="text-center">Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Calendar View -->
+                <div class="tab-pane fade" id="calendarView">
+                    <div id="taskCalendar"></div>
+                </div>
+
+                <!-- Kanban View -->
+                <div class="tab-pane fade" id="kanbanView">
+                    <div class="row" id="kanbanBoard">
+                        <!-- Columns will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Assign Task Modal -->
+<div class="modal fade" id="assignTaskModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Assign New Task</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="assignTaskForm">
+                    <div class="mb-3">
+                        <label class="form-label">Task Title</label>
+                        <input type="text" class="form-control" name="title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" name="description" rows="3" required></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Assign To</label>
+                            <select class="form-select" name="assignedTo" id="assignToSelect" required>
+                                <option value="">Select Employee</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Team (Optional)</label>
+                            <select class="form-select" name="teamId" id="teamSelect">
+                                <option value="">No Team</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Priority</label>
+                            <select class="form-select" name="priority" required>
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                                <option value="Critical">Critical</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Due Date</label>
+                            <input type="datetime-local" class="form-control" name="dueDate" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="assignTask()">Assign Task</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            loadTasks();
+            loadEmployeesForSelect();
+            loadTaskStats();
+            initializeCalendar();
+
+            // Refresh every minute
+            setInterval(loadTaskStats, 60000);
+        });
+
+        function loadTasks() {
+            $.get('/api/task/getall', function(data) {
+                displayTasks(data);
+                updateKanbanBoard(data);
+            });
+        }
+
+        function loadTaskStats() {
+            $.get('/api/task/stats', function(stats) {
+                $('#totalTasks').text(stats.total);
+                $('#completedTasks').text(stats.completed);
+                $('#inProgressTasks').text(stats.inProgress);
+                $('#overdueTasks').text(stats.overdue);
+            });
+        }
+
+        function displayTasks(tasks) {
+            let html = '';
+            if (tasks && tasks.length > 0) {
+                tasks.forEach(function(task) {
+                    let priorityClass = {
+                        'Low': 'success',
+                        'Medium': 'info',
+                        'High': 'warning',
+                        'Critical': 'danger'
+                    }[task.priority] || 'secondary';
+
+                    let statusClass = {
+                        'Pending': 'warning',
+                        'InProgress': 'info',
+                        'Completed': 'success',
+                        'Overdue': 'danger'
+                    }[task.status] || 'secondary';
+
+                    let dueDate = moment(task.dueDate);
+                    let isOverdue = dueDate.isBefore(moment()) && task.status !== 'Completed';
+
+                    html += `
+                        <tr class="${isOverdue ? 'table-danger' : ''}">
+                            <td>${task.taskId}</td>
+                            <td>${task.title}</td>
+                            <td>${task.assignee ? task.assignee.fullName : 'N/A'}</td>
+                            <td><span class="badge bg-${priorityClass}">${task.priority}</span></td>
+                            <td>${dueDate.format('MMM DD, YYYY')}</td>
+                            <td><span class="badge bg-${statusClass}">${task.status}</span></td>
+                            <td>
+                                <button class="btn btn-sm btn-info" onclick="viewTaskDetails(${task.id})">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                                <button class="btn btn-sm btn-success" onclick="downloadTaskPDF(${task.id})">
+                                    <i class="bi bi-file-pdf"></i>
+                                </button>
+                                <button class="btn btn-sm btn-warning" onclick="sendTaskEmail(${task.id})">
+                                    <i class="bi bi-envelope"></i>
+                                </button>
+                                ${task.status !== 'Completed' ? `
+                                    <button class="btn btn-sm btn-primary" onclick="updateTaskStatus(${task.id}, 'InProgress')">
+                                        <i class="bi bi-play"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-success" onclick="updateTaskStatus(${task.id}, 'Completed')">
+                                        <i class="bi bi-check"></i>
+                                    </button>
+                                ` : ''}
+                            </td>
+                        </tr>
+                    `;
+                });
+            } else {
+                html = '<tr><td colspan="7" class="text-center">No tasks found</td></tr>';
+            }
+            $('#taskTableBody').html(html);
+        }
+
+        function loadEmployeesForSelect() {
+            $.get('/api/employee/getall', function(employees) {
+                let options = '<option value="">Select Employee</option>';
+                employees.forEach(function(emp) {
+                    options += `<option value="${emp.id}">${emp.fullName} (${emp.role})</option>`;
+                });
+                $('#assignToSelect').html(options);
+            });
+        }
+
+        function openAssignTaskModal() {
+            $('#assignTaskForm')[0].reset();
+            $('#assignTaskModal').modal('show');
+        }
+
+        function assignTask() {
+            let formData = $('#assignTaskForm').serializeArray();
+            let data = {};
+            formData.forEach(item => data[item.name] = item.value);
+            data.assignedBy = 1; // Current admin ID
+
+            $.ajax({
+                url: '/api/task/assign',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                success: function(response) {
+                    $('#assignTaskModal').modal('hide');
+                    loadTasks();
+                    loadTaskStats();
+                    showNotification('Task assigned successfully', 'success');
+
+                    // Download PDF automatically
+                    if (response.pdfPath) {
+                        window.location.href = response.pdfPath;
+                    }
+                },
+                error: function(xhr) {
+                    showNotification('Error assigning task: ' + xhr.responseText, 'error');
+                }
+            });
+        }
+
+        function updateTaskStatus(id, status) {
+            $.ajax({
+                url: `/api/task/updatestatus/${id}`,
+                type: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify({ status: status }),
+                success: function() {
+                    loadTasks();
+                    loadTaskStats();
+                    showNotification('Task status updated', 'success');
+                }
+            });
+        }
+
+        function downloadTaskPDF(id) {
+            window.location.href = `/api/task/downloadpdf/${id}`;
+        }
+
+        function sendTaskEmail(id) {
+            $.post(`/api/task/sendemail/${id}`, function() {
+                showNotification('Task details sent via email', 'success');
+            });
+        }
+
+        function initializeCalendar() {
+            $('#taskCalendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                events: '/api/task/calendar',
+                eventClick: function(event) {
+                    viewTaskDetails(event.id);
+                },
+                eventRender: function(event, element) {
+                    let priorityColor = {
+                        'Low': '#28a745',
+                        'Medium': '#17a2b8',
+                        'High': '#ffc107',
+                        'Critical': '#dc3545'
+                    }[event.priority] || '#007bff';
+
+                    element.css('background-color', priorityColor);
+                }
+            });
+        }
+
+        function updateKanbanBoard(tasks) {
+            let statuses = ['Pending', 'InProgress', 'Completed', 'Overdue'];
+            let statusLabels = {
+                'Pending': 'To Do',
+                'InProgress': 'In Progress',
+                'Completed': 'Done',
+                'Overdue': 'Overdue'
+            };
+
+            let html = '';
+            statuses.forEach(function(status) {
+                let statusTasks = tasks.filter(t => t.status === status);
+                let columnClass = status === 'Overdue' ? 'danger' : 'primary';
+
+                html += `
+                    <div class="col-md-3">
+                        <div class="card border-${columnClass} mb-3">
+                            <div class="card-header bg-${columnClass} text-white">
+                                ${statusLabels[status]} (${statusTasks.length})
+                            </div>
+                            <div class="card-body" id="kanban-${status}"
+                                 ondrop="dropTask(event)" ondragover="allowDrop(event)">
+                                ${statusTasks.map(task => `
+                                    <div class="card mb-2" draggable="true"
+                                         ondragstart="dragTask(event, ${task.id})"
+                                         data-task-id="${task.id}">
+                                        <div class="card-body p-2">
+                                            <h6 class="card-title">${task.title}</h6>
+                                            <p class="card-text small">
+                                                ${task.assignee ? task.assignee.fullName : 'Unassigned'}<br>
+                                                Due: ${moment(task.dueDate).format('MMM DD')}
+                                            </p>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            $('#kanbanBoard').html(html);
+        }
+
+        function dragTask(event, taskId) {
+            event.dataTransfer.setData('text/plain', taskId);
+        }
+
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        function dropTask(event) {
+            event.preventDefault();
+            let taskId = event.dataTransfer.getData('text/plain');
+            let newStatus = event.target.closest('.card-body').id.replace('kanban-', '');
+
+            updateTaskStatus(taskId, newStatus);
+        }
+
+        function viewTaskDetails(id) {
+            $.get(`/api/task/${id}`, function(task) {
+                // Show task details in a modal
+                let detailsHtml = `
+                    <div class="container">
+                        <h5>${task.title}</h5>
+                        <p>${task.description}</p>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Assigned To:</strong> ${task.assignee ? task.assignee.fullName : 'N/A'}<br>
+                                <strong>Priority:</strong> ${task.priority}<br>
+                                <strong>Status:</strong> ${task.status}
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Due Date:</strong> ${moment(task.dueDate).format('MMM DD, YYYY')}<br>
+                                <strong>Created:</strong> ${moment(task.createdAt).format('MMM DD, YYYY')}<br>
+                                <strong>Last Updated:</strong> ${moment(task.updatedAt).fromNow()}
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // Show in modal
+                $('#taskDetailsContent').html(detailsHtml);
+                $('#taskDetailsModal').modal('show');
+            });
+        }
+
+        function showNotification(message, type) {
+            // You can implement a toast notification here
+            alert(message);
+        }
+    </script>
+}

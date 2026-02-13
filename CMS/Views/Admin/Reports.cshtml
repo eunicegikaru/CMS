@@ -1,0 +1,453 @@
+﻿<!-- Views/Report/Index.cshtml -->
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Reports Management</h1>
+        <div>
+            <button class="btn btn-primary me-2" onclick="openUploadReportModal()">
+                <i class="bi bi-upload"></i> Upload Report
+            </button>
+            <button class="btn btn-success" onclick="openGenerateReportModal()">
+                <i class="bi bi-file-earmark-pdf"></i> Generate Report
+            </button>
+        </div>
+    </div>
+
+    <!-- Report Categories -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card bg-primary text-white h-100">
+                <div class="card-body" onclick="filterReports('Monthly')" style="cursor: pointer;">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="small">Monthly Reports</div>
+                            <div class="h3" id="monthlyCount">0</div>
+                        </div>
+                        <i class="bi bi-calendar-month fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-success text-white h-100">
+                <div class="card-body" onclick="filterReports('Weekly')" style="cursor: pointer;">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="small">Weekly Reports</div>
+                            <div class="h3" id="weeklyCount">0</div>
+                        </div>
+                        <i class="bi bi-calendar-week fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-info text-white h-100">
+                <div class="card-body" onclick="filterReports('Project')" style="cursor: pointer;">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="small">Project Reports</div>
+                            <div class="h3" id="projectCount">0</div>
+                        </div>
+                        <i class="bi bi-folder fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-warning text-white h-100">
+                <div class="card-body" onclick="filterReports('Performance')" style="cursor: pointer;">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="small">Performance Reports</div>
+                            <div class="h3" id="performanceCount">0</div>
+                        </div>
+                        <i class="bi bi-graph-up fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reports Table -->
+    <div class="card shadow mb-4">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-bs-toggle="tab" href="#pending">Pending Review</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#reviewed">Reviewed</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#approved">Approved</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#all">All Reports</a>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body">
+            <div class="tab-content">
+                <!-- Pending Tab -->
+                <div class="tab-pane fade show active" id="pending">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="pendingTable">
+                            <thead>
+                                <tr>
+                                    <th>Report ID</th>
+                                    <th>Title</th>
+                                    <th>Type</th>
+                                    <th>Submitted By</th>
+                                    <th>Submission Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pendingBody">
+                                <tr><td colspan="7" class="text-center">Loading...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Reviewed Tab -->
+                <div class="tab-pane fade" id="reviewed">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="reviewedTable">
+                            <thead>
+                                <tr>
+                                    <th>Report ID</th>
+                                    <th>Title</th>
+                                    <th>Type</th>
+                                    <th>Submitted By</th>
+                                    <th>Submission Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reviewedBody">
+                                <tr><td colspan="7" class="text-center">Loading...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Approved Tab -->
+                <div class="tab-pane fade" id="approved">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="approvedTable">
+                            <thead>
+                                <tr>
+                                    <th>Report ID</th>
+                                    <th>Title</th>
+                                    <th>Type</th>
+                                    <th>Submitted By</th>
+                                    <th>Submission Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="approvedBody">
+                                <tr><td colspan="7" class="text-center">Loading...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- All Reports Tab -->
+                <div class="tab-pane fade" id="all">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="allTable">
+                            <thead>
+                                <tr>
+                                    <th>Report ID</th>
+                                    <th>Title</th>
+                                    <th>Type</th>
+                                    <th>Submitted By</th>
+                                    <th>Submission Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="allBody">
+                                <tr><td colspan="7" class="text-center">Loading...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Upload Report Modal -->
+<div class="modal fade" id="uploadReportModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Upload Report</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="uploadReportForm" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label class="form-label">Report Title</label>
+                        <input type="text" class="form-control" name="title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Report Type</label>
+                        <select class="form-select" name="type" required>
+                            <option value="Monthly">Monthly Report</option>
+                            <option value="Weekly">Weekly Report</option>
+                            <option value="Project">Project Report</option>
+                            <option value="Performance">Performance Report</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">PDF File</label>
+                        <input type="file" class="form-control" name="file" accept=".pdf" required>
+                        <small class="text-muted">Maximum file size: 10MB</small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="uploadReport()">Upload</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Review Report Modal -->
+<div class="modal fade" id="reviewReportModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Review Report</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="reviewReportId">
+                <div class="mb-3">
+                    <label class="form-label">Comments</label>
+                    <textarea class="form-control" id="reviewComments" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Status</label>
+                    <select class="form-select" id="reviewStatus">
+                        <option value="Reviewed">Mark as Reviewed</option>
+                        <option value="Approved">Approve</option>
+                        <option value="Pending">Request Changes</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="submitReview()">Submit Review</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            loadReports();
+            loadReportStats();
+        });
+
+        function loadReports() {
+            $.get('/api/report/getall', function(data) {
+                displayPendingReports(data.filter(r => r.status === 'Pending'));
+                displayReviewedReports(data.filter(r => r.status === 'Reviewed'));
+                displayApprovedReports(data.filter(r => r.status === 'Approved'));
+                displayAllReports(data);
+            });
+        }
+
+        function loadReportStats() {
+            $.get('/api/report/stats', function(stats) {
+                $('#monthlyCount').text(stats.monthly || 0);
+                $('#weeklyCount').text(stats.weekly || 0);
+                $('#projectCount').text(stats.project || 0);
+                $('#performanceCount').text(stats.performance || 0);
+            });
+        }
+
+        function displayPendingReports(reports) {
+            let html = generateReportRows(reports);
+            $('#pendingBody').html(html);
+        }
+
+        function displayReviewedReports(reports) {
+            let html = generateReportRows(reports);
+            $('#reviewedBody').html(html);
+        }
+
+        function displayApprovedReports(reports) {
+            let html = generateReportRows(reports);
+            $('#approvedBody').html(html);
+        }
+
+        function displayAllReports(reports) {
+            let html = generateReportRows(reports);
+            $('#allBody').html(html);
+        }
+
+        function generateReportRows(reports) {
+            if (!reports || reports.length === 0) {
+                return '<tr><td colspan="7" class="text-center">No reports found</td></tr>';
+            }
+
+            let html = '';
+            reports.forEach(function(report) {
+                let statusClass = {
+                    'Pending': 'warning',
+                    'Reviewed': 'info',
+                    'Approved': 'success'
+                }[report.status] || 'secondary';
+
+                html += `
+                    <tr>
+                        <td>${report.reportId}</td>
+                        <td>${report.title}</td>
+                        <td><span class="badge bg-primary">${report.type}</span></td>
+                        <td>${report.submitter ? report.submitter.fullName : 'Unknown'}</td>
+                        <td>${moment(report.submissionDate).format('MMM DD, YYYY HH:mm')}</td>
+                        <td><span class="badge bg-${statusClass}">${report.status}</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-info" onclick="viewReport(${report.id})">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-success" onclick="downloadReport(${report.id})">
+                                <i class="bi bi-file-pdf"></i>
+                            </button>
+                            ${report.status === 'Pending' ? `
+                                <button class="btn btn-sm btn-warning" onclick="openReviewModal(${report.id})">
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+                            ` : ''}
+                            ${report.status === 'Reviewed' ? `
+                                <button class="btn btn-sm btn-primary" onclick="approveReport(${report.id})">
+                                    <i class="bi bi-check-circle"></i>
+                                </button>
+                            ` : ''}
+                        </td>
+                    </tr>
+                `;
+            });
+            return html;
+        }
+
+        function openUploadReportModal() {
+            $('#uploadReportForm')[0].reset();
+            $('#uploadReportModal').modal('show');
+        }
+
+        function uploadReport() {
+            let formData = new FormData($('#uploadReportForm')[0]);
+
+            $.ajax({
+                url: '/api/report/upload',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function() {
+                    $('#uploadReportModal').modal('hide');
+                    loadReports();
+                    loadReportStats();
+                    showNotification('Report uploaded successfully', 'success');
+                },
+                error: function(xhr) {
+                    showNotification('Error uploading report: ' + xhr.responseText, 'error');
+                }
+            });
+        }
+
+        function openReviewModal(reportId) {
+            $('#reviewReportId').val(reportId);
+            $('#reviewComments').val('');
+            $('#reviewStatus').val('Reviewed');
+            $('#reviewReportModal').modal('show');
+        }
+
+        function submitReview() {
+            let data = {
+                reportId: $('#reviewReportId').val(),
+                comments: $('#reviewComments').val(),
+                status: $('#reviewStatus').val()
+            };
+
+            $.ajax({
+                url: '/api/report/review',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                success: function() {
+                    $('#reviewReportModal').modal('hide');
+                    loadReports();
+                    showNotification('Review submitted successfully', 'success');
+                },
+                error: function(xhr) {
+                    showNotification('Error submitting review: ' + xhr.responseText, 'error');
+                }
+            });
+        }
+
+        function approveReport(reportId) {
+            if (confirm('Approve this report?')) {
+                $.post(`/api/report/approve/${reportId}`, function() {
+                    loadReports();
+                    showNotification('Report approved', 'success');
+                });
+            }
+        }
+
+        function viewReport(id) {
+            $.get(`/api/report/${id}`, function(report) {
+                // Show report preview in a modal
+                let previewHtml = `
+                    <div class="container">
+                        <h5>${report.title}</h5>
+                        <p><strong>Type:</strong> ${report.type}</p>
+                        <p><strong>Submitted By:</strong> ${report.submitter ? report.submitter.fullName : 'Unknown'}</p>
+                        <p><strong>Date:</strong> ${moment(report.submissionDate).format('MMM DD, YYYY HH:mm')}</p>
+                        <p><strong>Status:</strong> <span class="badge bg-${report.status === 'Approved' ? 'success' : report.status === 'Reviewed' ? 'info' : 'warning'}">${report.status}</span></p>
+                        ${report.comments ? `<p><strong>Comments:</strong> ${report.comments}</p>` : ''}
+                        <hr>
+                        <iframe src="/api/report/view/${report.id}" style="width:100%; height:500px;" frameborder="0"></iframe>
+                    </div>
+                `;
+
+                $('#reportPreviewContent').html(previewHtml);
+                $('#reportPreviewModal').modal('show');
+            });
+        }
+
+        function downloadReport(id) {
+            window.location.href = `/api/report/download/${id}`;
+        }
+
+        function filterReports(type) {
+            $('.nav-tabs a[href="#all"]').tab('show');
+            // Highlight rows of the selected type
+            $('#allBody tr').each(function() {
+                let rowType = $(this).find('td:eq(2) span').text();
+                if (type && rowType !== type) {
+                    $(this).hide();
+                } else {
+                    $(this).show();
+                }
+            });
+        }
+
+        function showNotification(message, type) {
+            alert(message);
+        }
+    </script>
+}

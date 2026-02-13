@@ -1,0 +1,472 @@
+﻿<!-- Views/Invoice/Index.cshtml -->
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Invoice Management</h1>
+        <button class="btn btn-primary" onclick="openGenerateInvoiceModal()">
+            <i class="bi bi-plus-circle"></i> Generate Invoice
+        </button>
+    </div>
+
+    <!-- Invoice Summary Cards -->
+    <div class="row">
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Paid Invoices
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="paidCount">0</div>
+                            <div class="text-muted small" id="paidAmount">$0.00</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-check-circle fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Pending Invoices
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="pendingCount">0</div>
+                            <div class="text-muted small" id="pendingAmount">$0.00</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-clock fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                Overdue Invoices
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="overdueCount">0</div>
+                            <div class="text-muted small" id="overdueAmount">$0.00</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-exclamation-triangle fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <select class="form-select" id="statusFilter">
+                        <option value="">All Status</option>
+                        <option value="Paid">Paid</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Overdue">Overdue</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="clientFilter"
+                           placeholder="Search by client...">
+                </div>
+                <div class="col-md-3">
+                    <input type="month" class="form-control" id="monthFilter">
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-success w-100" onclick="exportInvoices()">
+                        <i class="bi bi-file-earmark-excel"></i> Export
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Invoices Table -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover" id="invoicesTable">
+                    <thead>
+                        <tr>
+                            <th>Invoice #</th>
+                            <th>Client</th>
+                            <th>Issue Date</th>
+                            <th>Due Date</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Payment Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="invoiceTableBody">
+                        <tr>
+                            <td colspan="8" class="text-center">Loading...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Generate Invoice Modal -->
+<div class="modal fade" id="generateInvoiceModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Generate Invoice</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="generateInvoiceForm">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Client Name</label>
+                            <input type="text" class="form-control" name="clientName" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Client Email</label>
+                            <input type="email" class="form-control" name="clientEmail" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Amount</label>
+                            <input type="number" class="form-control" name="amount" step="0.01" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Tax (%)</label>
+                            <input type="number" class="form-control" name="tax" step="0.01" value="0">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Due Date</label>
+                            <input type="date" class="form-control" name="dueDate" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Payment Terms</label>
+                            <select class="form-select" name="paymentTerms">
+                                <option value="Net 15">Net 15</option>
+                                <option value="Net 30" selected>Net 30</option>
+                                <option value="Net 45">Net 45</option>
+                                <option value="Due on Receipt">Due on Receipt</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" name="description" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="generateInvoice()">Generate</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Payment Modal -->
+<div class="modal fade" id="paymentModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Record Payment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="paymentForm">
+                    <input type="hidden" name="invoiceId" id="paymentInvoiceId">
+                    <div class="mb-3">
+                        <label class="form-label">Payment Date</label>
+                        <input type="date" class="form-control" name="paymentDate" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Payment Method</label>
+                        <select class="form-select" name="paymentMethod" required>
+                            <option value="Cash">Cash</option>
+                            <option value="Bank Transfer">Bank Transfer</option>
+                            <option value="Credit Card">Credit Card</option>
+                            <option value="Check">Check</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Amount</label>
+                        <input type="number" class="form-control" name="amount" step="0.01" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Reference/Transaction ID</label>
+                        <input type="text" class="form-control" name="reference">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-success" onclick="recordPayment()">Record Payment</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            loadInvoices();
+            loadInvoiceStats();
+
+            // Filters
+            $('#statusFilter, #clientFilter, #monthFilter').change(filterInvoices);
+        });
+
+        function loadInvoices() {
+            $.get('/api/invoice/getall', function(data) {
+                displayInvoices(data);
+            });
+        }
+
+        function loadInvoiceStats() {
+            $.get('/api/invoice/stats', function(stats) {
+                $('#paidCount').text(stats.paid.count);
+                $('#paidAmount').text('$' + stats.paid.amount.toFixed(2));
+                $('#pendingCount').text(stats.pending.count);
+                $('#pendingAmount').text('$' + stats.pending.amount.toFixed(2));
+                $('#overdueCount').text(stats.overdue.count);
+                $('#overdueAmount').text('$' + stats.overdue.amount.toFixed(2));
+            });
+        }
+
+        function displayInvoices(invoices) {
+            let html = '';
+            if (invoices && invoices.length > 0) {
+                invoices.forEach(function(inv) {
+                    let statusClass = {
+                        'Paid': 'success',
+                        'Pending': 'warning',
+                        'Overdue': 'danger'
+                    }[inv.status] || 'secondary';
+
+                    let isOverdue = inv.status === 'Pending' && moment(inv.dueDate).isBefore(moment());
+
+                    html += `
+                        <tr class="${isOverdue ? 'table-danger' : ''}">
+                            <td><strong>${inv.invoiceNumber}</strong></td>
+                            <td>${inv.clientName}</td>
+                            <td>${moment(inv.issueDate).format('MMM DD, YYYY')}</td>
+                            <td>${moment(inv.dueDate).format('MMM DD, YYYY')}</td>
+                            <td>$${inv.totalAmount.toFixed(2)}</td>
+                            <td><span class="badge bg-${statusClass}">${inv.status}</span></td>
+                            <td>${inv.paymentDate ? moment(inv.paymentDate).format('MMM DD, YYYY') : '-'}</td>
+                            <td>
+                                <button class="btn btn-sm btn-info" onclick="viewInvoice(${inv.id})">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                                <button class="btn btn-sm btn-success" onclick="downloadInvoicePDF(${inv.id})">
+                                    <i class="bi bi-file-pdf"></i>
+                                </button>
+                                <button class="btn btn-sm btn-warning" onclick="sendInvoiceEmail(${inv.id})">
+                                    <i class="bi bi-envelope"></i>
+                                </button>
+                                ${inv.status !== 'Paid' ? `
+                                    <button class="btn btn-sm btn-primary" onclick="openPaymentModal(${inv.id})">
+                                        <i class="bi bi-cash"></i>
+                                    </button>
+                                ` : ''}
+                            </td>
+                        </tr>
+                    `;
+                });
+            } else {
+                html = '<tr><td colspan="8" class="text-center">No invoices found</td></tr>';
+            }
+            $('#invoiceTableBody').html(html);
+        }
+
+        function filterInvoices() {
+            let status = $('#statusFilter').val();
+            let client = $('#clientFilter').val().toLowerCase();
+            let month = $('#monthFilter').val();
+
+            $('#invoiceTableBody tr').each(function() {
+                let show = true;
+                let row = $(this);
+
+                if (status) {
+                    let rowStatus = row.find('td:eq(5) span').text();
+                    if (rowStatus !== status) show = false;
+                }
+
+                if (client) {
+                    let rowClient = row.find('td:eq(1)').text().toLowerCase();
+                    if (!rowClient.includes(client)) show = false;
+                }
+
+                if (month) {
+                    let rowDate = row.find('td:eq(2)').text();
+                    let rowMonth = moment(rowDate, 'MMM DD, YYYY').format('YYYY-MM');
+                    if (rowMonth !== month) show = false;
+                }
+
+                row.toggle(show);
+            });
+        }
+
+        function openGenerateInvoiceModal() {
+            $('#generateInvoiceForm')[0].reset();
+            $('#generateInvoiceModal').modal('show');
+        }
+
+        function generateInvoice() {
+            let formData = $('#generateInvoiceForm').serializeArray();
+            let data = {};
+            formData.forEach(item => data[item.name] = item.value);
+            data.createdBy = 1; // Current admin ID
+
+            $.ajax({
+                url: '/api/invoice/generate',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                success: function(response) {
+                    $('#generateInvoiceModal').modal('hide');
+                    loadInvoices();
+                    loadInvoiceStats();
+                    showNotification('Invoice generated successfully', 'success');
+
+                    // Download PDF
+                    if (response.pdfPath) {
+                        window.location.href = response.pdfPath;
+                    }
+                },
+                error: function(xhr) {
+                    showNotification('Error generating invoice: ' + xhr.responseText, 'error');
+                }
+            });
+        }
+
+        function openPaymentModal(invoiceId) {
+            $('#paymentInvoiceId').val(invoiceId);
+            $('#paymentForm')[0].reset();
+            $('#paymentModal').modal('show');
+        }
+
+        function recordPayment() {
+            let data = {
+                invoiceId: $('#paymentInvoiceId').val(),
+                paymentDate: $('input[name="paymentDate"]').val(),
+                paymentMethod: $('select[name="paymentMethod"]').val(),
+                amount: $('input[name="amount"]').val(),
+                reference: $('input[name="reference"]').val()
+            };
+
+            $.ajax({
+                url: '/api/invoice/recordpayment',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                success: function() {
+                    $('#paymentModal').modal('hide');
+                    loadInvoices();
+                    loadInvoiceStats();
+                    showNotification('Payment recorded successfully', 'success');
+                },
+                error: function(xhr) {
+                    showNotification('Error recording payment: ' + xhr.responseText, 'error');
+                }
+            });
+        }
+
+        function downloadInvoicePDF(id) {
+            window.location.href = `/api/invoice/downloadpdf/${id}`;
+        }
+
+        function sendInvoiceEmail(id) {
+            $.post(`/api/invoice/sendemail/${id}`, function() {
+                showNotification('Invoice sent via email', 'success');
+            });
+        }
+
+        function exportInvoices() {
+            let status = $('#statusFilter').val();
+            let month = $('#monthFilter').val();
+            window.location.href = `/api/invoice/export?status=${status}&month=${month}`;
+        }
+
+        function viewInvoice(id) {
+            $.get(`/api/invoice/${id}`, function(invoice) {
+                // Show invoice details in a modal
+                let detailsHtml = `
+                    <div class="container">
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <h5>Invoice #${invoice.invoiceNumber}</h5>
+                                <p><strong>Client:</strong> ${invoice.clientName}<br>
+                                <strong>Email:</strong> ${invoice.clientEmail}</p>
+                            </div>
+                            <div class="col-6 text-end">
+                                <p><strong>Issue Date:</strong> ${moment(invoice.issueDate).format('MMM DD, YYYY')}<br>
+                                <strong>Due Date:</strong> ${moment(invoice.dueDate).format('MMM DD, YYYY')}</p>
+                            </div>
+                        </div>
+
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Amount</th>
+                                    <th>Tax</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>${invoice.description || 'Invoice'}</td>
+                                    <td>$${invoice.amount.toFixed(2)}</td>
+                                    <td>$${(invoice.tax || 0).toFixed(2)}</td>
+                                    <td>$${invoice.totalAmount.toFixed(2)}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <p><strong>Status:</strong> <span class="badge bg-${invoice.status === 'Paid' ? 'success' : invoice.status === 'Pending' ? 'warning' : 'danger'}">${invoice.status}</span></p>
+                                ${invoice.paymentDate ? `<p><strong>Payment Date:</strong> ${moment(invoice.paymentDate).format('MMM DD, YYYY')}</p>` : ''}
+                                ${invoice.paymentMethod ? `<p><strong>Payment Method:</strong> ${invoice.paymentMethod}</p>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                $('#invoiceDetailsContent').html(detailsHtml);
+                $('#invoiceDetailsModal').modal('show');
+            });
+        }
+
+        function showNotification(message, type) {
+            // Implement toast notification
+            alert(message);
+        }
+    </script>
+}

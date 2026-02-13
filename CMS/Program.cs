@@ -11,7 +11,14 @@ builder.Services.AddControllersWithViews();
 
 
 // Register repositories
-builder.Services.AddScoped<IClientsRepository, ClientsRepository>();
+builder.Services.AddScoped<IClientsRepository>(sp =>
+{
+    var configuration = sp.GetRequiredService<IConfiguration>();
+    var connectionString = configuration.GetConnectionString("DefaultConnection");
+
+    return new ClientsRepository(connectionString!);
+});
+
 
 // Configure Cookie Authentication
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -60,6 +67,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseSession();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
