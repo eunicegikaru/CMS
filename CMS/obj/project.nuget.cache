@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "37y1GHjWb84=",
+  "dgSpecHash": "xdc1pyCwRcI=",
   "success": true,
   "projectFilePath": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\CMS.csproj",
   "expectedPackageFiles": [
@@ -37,5 +37,15 @@
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.security.cryptography.protecteddata\\8.0.0\\system.security.cryptography.protecteddata.8.0.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.valuetuple\\4.5.0\\system.valuetuple.4.5.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1900",
+      "level": "Warning",
+      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://api.nuget.org/v3/index.json.",
+      "projectPath": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\CMS.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\ADMIN\\source\\repos\\CMS\\CMS\\CMS.csproj",
+      "targetGraphs": []
+    }
+  ]
 }

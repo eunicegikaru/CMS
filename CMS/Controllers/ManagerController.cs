@@ -14,5 +14,10 @@ namespace CMS.Controllers
             ViewBag.UserRole = User.FindFirst(ClaimTypes.Role)?.Value;
             return View();
         }
+
+        public IActionResult Task()
+        {
+            return View();
+        }
     }
 }
