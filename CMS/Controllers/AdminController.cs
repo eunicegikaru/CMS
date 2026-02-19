@@ -23,11 +23,31 @@ namespace CMS.Controllers
             return View();
         }
 
-        public IActionResult Employees()
+        //[Route("api/employee")]
+        //[ApiController]
+        //public class EmployeeApiController : ControllerBase
+        //{
+        //    private readonly IEmployeesRepository _repo;
+
+        //    public EmployeeApiController(IEmployeesRepository repo)
+        //    {
+        //        _repo = repo;
+        //    }
+
+        //    [HttpGet("getall")]
+        //    public async Task<IActionResult> GetAll()
+        //    {
+        //        var employees = await _repo.GetAllEmployees();
+        //        return Ok(employees);
+        //    }
+        //}
+
+        public IActionResult Activities()
         {
             return View();
         }
-        public IActionResult Activities()
+
+        public IActionResult Employees()
         {
             return View();
         }

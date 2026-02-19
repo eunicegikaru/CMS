@@ -223,7 +223,7 @@
 
             <ul class="list-unstyled components">
                 <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "Dashboard" ? "active" : "")">
-                    <a href="@Url.Action("Index", "Dashboard")">
+                    <a href="@Url.Action("Dashboard", "Admin")">
                         <i class="bi bi-speedometer2"></i> Dashboard
                     </a>
                 </li>
@@ -295,7 +295,11 @@
                                 <li><a class="dropdown-item" href="#"><i class="bi bi-person"></i> Profile</a></li>
                                 <li><a class="dropdown-item" href="#"><i class="bi bi-gear"></i> Settings</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Auth" asp-action="Login">
+                                        <i class="bi bi-box-arrow-right>Logout</a>
+                                    "></i> Logout</a>
+                                </li>
                             </ul>
                         </div>
                     </div>

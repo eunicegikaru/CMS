@@ -299,7 +299,7 @@
                 let colors = ['success', 'primary', 'warning', 'danger'];
                 legendHtml += `
                     <span class="mr-2">
-                        <i class="bi bi-circle-fill text-${colors[index]}"></i> ${item.status} (${item.count})
+                        <i class="bi bi-circle-fill text-${colors[index % colors.length]}"></i> ${item.status} (${item.count})
                     </span>
                 `;
             });
@@ -347,7 +347,8 @@
         }
 
         function loadRecentActivity() {
-            $.get('/api/activity/recent', function(data) {
+            // endpoint is provided by AnalyticsController at /api/analytics/recent
+            $.get('/api/analytics/recent', function(data) {
                 let html = '';
                 if (data && data.length > 0) {
                     data.forEach(function(activity) {
@@ -376,9 +377,15 @@
 
         function updateRevenueChart(period) {
             $.get(`/api/analytics/revenue?period=${period}`, function(data) {
+                if (!revenueChart) {
+                    // If chart not initialized yet, create it
+                    initializeRevenueChart(data);
+                    return;
+                }
+
                 revenueChart.data.labels = data.map(d => d.label);
                 revenueChart.data.datasets[0].data = data.map(d => d.revenue);
-                revenueChart.data.datasets[1].data = data.map(d => d.expenses);
+                revenueChart.data.datasets[1].data = data.map(d => d.expenses || 0);
                 revenueChart.update();
             });
         }
