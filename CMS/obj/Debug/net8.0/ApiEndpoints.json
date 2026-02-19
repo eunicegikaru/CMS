@@ -129,5 +129,25 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CMS.Controllers.InvoiceController",
+    "Method": "GetAll",
+    "RelativePath": "api/Invoice/getall",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CMS.Controllers.InvoiceController",
+    "Method": "GetStats",
+    "RelativePath": "api/Invoice/stats",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
   }
 ]

@@ -30,6 +30,12 @@ internal class Program
             return new EmployeesRepository(connectionstring!);
         });
 
+        builder.Services.AddScoped<IInvoicesRepository>(sp =>
+        {
+            var config = sp.GetRequiredService<IConfiguration>();
+            var connectionString = config.GetConnectionString("DefaultConnection");
+            return new InvoicesRepository(connectionString!);
+        });
 
 
         // Configure Cookie Authentication

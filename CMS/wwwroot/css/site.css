@@ -166,3 +166,11 @@ body {
     justify-content: center;
     font-weight: bold;
 }
+.stat-card {
+    transition: transform 0.2s;
+}
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }

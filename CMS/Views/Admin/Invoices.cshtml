@@ -1,4 +1,5 @@
 ﻿<!-- Views/Invoice/Index.cshtml -->
+@model IEnumerable<DBL.Models.Invoice>?
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
@@ -119,9 +120,46 @@
                         </tr>
                     </thead>
                     <tbody id="invoiceTableBody">
-                        <tr>
-                            <td colspan="8" class="text-center">Loading...</td>
-                        </tr>
+                        @if (Model != null && Model.Any())
+                        {
+                            foreach (var inv in Model)
+                            {
+                                var statusClass = inv.Status == "Paid" ? "success" : inv.Status == "Pending" ? "warning" : "danger";
+                                var isOverdue = inv.Status == "Pending" && inv.DueDate < DateTime.Now;
+                                <tr class="@(isOverdue ? "table-danger" : "")">
+                                    <td><strong>@inv.InvoiceNumber</strong></td>
+                                    <td>@inv.ClientName</td>
+                                    <td>@inv.IssueDate.ToString("MMM dd, yyyy")</td>
+                                    <td>@inv.DueDate.ToString("MMM dd, yyyy")</td>
+                                    <td>$@inv.TotalAmount.ToString("F2")</td>
+                                    <td><span class="badge bg-@statusClass">@inv.Status</span></td>
+                                    <td>@(inv.PaymentDate.HasValue ? inv.PaymentDate.Value.ToString("MMM dd, yyyy") : "-")</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-info" onclick="viewInvoice(@inv.Id)">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-success" onclick="downloadInvoicePDF(@inv.Id)">
+                                            <i class="bi bi-file-pdf"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-warning" onclick="sendInvoiceEmail(@inv.Id)">
+                                            <i class="bi bi-envelope"></i>
+                                        </button>
+                                        @if (inv.Status != "Paid")
+                                        {
+                                            <button class="btn btn-sm btn-primary" onclick="openPaymentModal(@inv.Id)">
+                                                <i class="bi bi-cash"></i>
+                                            </button>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="8" class="text-center">Loading...</td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>
