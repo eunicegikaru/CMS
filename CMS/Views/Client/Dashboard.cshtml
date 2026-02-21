@@ -1,0 +1,439 @@
+﻿<!-- Views/Client/Index.cshtml -->
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "_ClientLayout";
+}
+
+<div class="container-fluid">
+    <!-- Welcome Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h2>Welcome back, @ViewData["ContactPerson"]! 👋</h2>
+                            <p class="mb-0">Here's what's happening with your projects today.</p>
+                            <div class="mt-3">
+                                <span class="badge bg-white text-primary me-2">
+                                    <i class="bi bi-calendar"></i> @DateTime.Now.ToString("dddd, MMMM dd")
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <i class="bi bi-building display-1 opacity-50"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stat-card">
+                <div class="d-flex align-items-center">
+                    <div class="stat-icon bg-primary bg-opacity-10 text-primary me-3">
+                        <i class="bi bi-folder"></i>
+                    </div>
+                    <div>
+                        <p class="text-muted mb-1">Active Projects</p>
+                        <h3 class="mb-0" id="activeProjects">3</h3>
+                        <small class="text-success">2 on track</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stat-card">
+                <div class="d-flex align-items-center">
+                    <div class="stat-icon bg-success bg-opacity-10 text-success me-3">
+                        <i class="bi bi-check-circle"></i>
+                    </div>
+                    <div>
+                        <p class="text-muted mb-1">Completed Milestones</p>
+                        <h3 class="mb-0">8</h3>
+                        <small>This quarter</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stat-card">
+                <div class="d-flex align-items-center">
+                    <div class="stat-icon bg-warning bg-opacity-10 text-warning me-3">
+                        <i class="bi bi-receipt"></i>
+                    </div>
+                    <div>
+                        <p class="text-muted mb-1">Pending Invoices</p>
+                        <h3 class="mb-0" id="pendingInvoices">2</h3>
+                        <small class="text-warning">$5,200 total</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stat-card">
+                <div class="d-flex align-items-center">
+                    <div class="stat-icon bg-info bg-opacity-10 text-info me-3">
+                        <i class="bi bi-envelope"></i>
+                    </div>
+                    <div>
+                        <p class="text-muted mb-1">Unread Messages</p>
+                        <h3 class="mb-0" id="unreadMessages">5</h3>
+                        <small>3 urgent</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Projects Overview -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0">Active Projects</h6>
+                    <a href="@Url.Action("Index", "ClientProject")" class="btn btn-sm btn-outline-primary">
+                        View All
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="row" id="projectsList">
+                        <!-- Projects will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-white">
+                    <h6 class="mb-0">Project Status</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="projectStatusChart" height="200"></canvas>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-header bg-white">
+                    <h6 class="mb-0">Upcoming Milestones</h6>
+                </div>
+                <div class="card-body">
+                    <div id="upcomingMilestones"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Invoices and Messages -->
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0">Recent Invoices</h6>
+                    <a href="@Url.Action("Index", "ClientInvoice")" class="btn btn-sm btn-outline-primary">
+                        View All
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div id="recentInvoices"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0">Recent Messages</h6>
+                    <a href="@Url.Action("Index", "ClientMessage")" class="btn btn-sm btn-outline-primary">
+                        View All
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div id="recentMessages"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Timeline -->
+    <div class="card mb-4">
+        <div class="card-header bg-white">
+            <h6 class="mb-0">Project Timeline</h6>
+        </div>
+        <div class="card-body">
+            <div class="timeline" id="projectTimeline"></div>
+        </div>
+    </div>
+
+    <!-- Recent Documents -->
+    <div class="card">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center">
+            <h6 class="mb-0">Recent Documents</h6>
+            <button class="btn btn-sm btn-outline-primary" onclick="viewAllDocuments()">
+                View All
+            </button>
+        </div>
+        <div class="card-body">
+            <div class="row" id="recentDocuments"></div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let projectStatusChart;
+
+        $(document).ready(function() {
+            loadDashboardData();
+            loadProjects();
+            loadInvoices();
+            loadMessages();
+            loadMilestones();
+            loadTimeline();
+            loadDocuments();
+            initializeProjectStatusChart();
+        });
+
+        function loadDashboardData() {
+            $.get('/api/client/dashboard', function(data) {
+                $('#activeProjects').text(data.activeProjects);
+                $('#pendingInvoices').text(data.pendingInvoices);
+                $('#unreadMessages').text(data.unreadMessages);
+            });
+        }
+
+        function loadProjects() {
+            const projects = [
+                {
+                    name: 'E-commerce Website Development',
+                    progress: 75,
+                    status: 'In Progress',
+                    nextMilestone: 'Payment Integration',
+                    dueDate: '2024-04-15'
+                },
+                {
+                    name: 'Mobile App Design',
+                    progress: 90,
+                    status: 'Review',
+                    nextMilestone: 'Client Feedback',
+                    dueDate: '2024-03-30'
+                },
+                {
+                    name: 'API Integration',
+                    progress: 45,
+                    status: 'In Progress',
+                    nextMilestone: 'Testing Phase',
+                    dueDate: '2024-04-10'
+                }
+            ];
+
+            let html = '';
+            projects.forEach(p => {
+                let statusClass = p.status === 'In Progress' ? 'bg-primary' :
+                                 p.status === 'Review' ? 'bg-warning' : 'bg-success';
+
+                html += `
+                    <div class="col-md-6 mb-3">
+                        <div class="project-card card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <h6 class="mb-2">${p.name}</h6>
+                                    <span class="badge ${statusClass}">${p.status}</span>
+                                </div>
+                                <div class="progress progress-sm mb-2">
+                                    <div class="progress-bar bg-success" style="width: ${p.progress}%"></div>
+                                </div>
+                                <p class="small text-muted mb-2">${p.progress}% Complete</p>
+                                <div class="d-flex justify-content-between small">
+                                    <span><i class="bi bi-flag"></i> Next: ${p.nextMilestone}</span>
+                                    <span><i class="bi bi-calendar"></i> Due: ${p.dueDate}</span>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary w-100 mt-2"
+                                        onclick="viewProject('${p.name}')">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            $('#projectsList').html(html);
+        }
+
+        function initializeProjectStatusChart() {
+            const ctx = document.getElementById('projectStatusChart').getContext('2d');
+            projectStatusChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['On Track', 'At Risk', 'Behind', 'Completed'],
+                    datasets: [{
+                        data: [2, 1, 0, 1],
+                        backgroundColor: ['#1cc88a', '#f6c23e', '#e74a3b', '#4e73df']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        function loadInvoices() {
+            const invoices = [
+                { number: 'INV-2024-001', amount: 2500, dueDate: '2024-03-30', status: 'Pending' },
+                { number: 'INV-2024-002', amount: 3200, dueDate: '2024-04-15', status: 'Pending' },
+                { number: 'INV-2024-003', amount: 1800, dueDate: '2024-03-20', status: 'Paid' }
+            ];
+
+            let html = '';
+            invoices.forEach(i => {
+                let statusClass = i.status === 'Paid' ? 'success' :
+                                 i.status === 'Pending' ? 'warning' : 'danger';
+                let borderClass = i.status === 'Paid' ? 'invoice-paid' :
+                                 i.status === 'Pending' ? 'invoice-pending' : 'invoice-overdue';
+
+                html += `
+                    <div class="invoice-card ${borderClass} card mb-2">
+                        <div class="card-body py-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>${i.number}</strong>
+                                    <br>
+                                    <small class="text-muted">Due: ${i.dueDate}</small>
+                                </div>
+                                <div class="text-end">
+                                    <strong>$${i.amount.toLocaleString()}</strong>
+                                    <br>
+                                    <span class="badge bg-${statusClass}">${i.status}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            $('#recentInvoices').html(html);
+        }
+
+        function loadMessages() {
+            const messages = [
+                { from: 'Sarah Johnson', subject: 'Project Update: E-commerce Site', time: '2 hours ago', urgent: true },
+                { from: 'Mike Chen', subject: 'Design Review Feedback', time: '1 day ago', urgent: false },
+                { from: 'Emily Brown', subject: 'Invoice Questions', time: '2 days ago', urgent: false }
+            ];
+
+            let html = '';
+            messages.forEach(m => {
+                html += `
+                    <div class="d-flex align-items-start mb-3">
+                        <div class="avatar-circle bg-primary text-white me-2"
+                             style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                            ${m.from.charAt(0)}
+                        </div>
+                        <div class="flex-grow-1">
+                            <div class="d-flex justify-content-between">
+                                <strong>${m.from}</strong>
+                                <small class="text-muted">${m.time}</small>
+                            </div>
+                            <p class="mb-0">${m.subject}</p>
+                            ${m.urgent ? '<span class="badge bg-danger">Urgent</span>' : ''}
+                        </div>
+                    </div>
+                `;
+            });
+            $('#recentMessages').html(html);
+        }
+
+        function loadMilestones() {
+            const milestones = [
+                { project: 'E-commerce Site', milestone: 'Payment Integration', due: '2024-03-25', status: 'Pending' },
+                { project: 'Mobile App', milestone: 'UI Review', due: '2024-03-28', status: 'In Progress' }
+            ];
+
+            let html = '<ul class="list-unstyled">';
+            milestones.forEach(m => {
+                html += `
+                    <li class="mb-2">
+                        <i class="bi bi-flag text-primary me-2"></i>
+                        <strong>${m.project}</strong> - ${m.milestone}
+                        <br>
+                        <small class="text-muted">Due: ${m.dueDate}</small>
+                    </li>
+                `;
+            });
+            html += '</ul>';
+            $('#upcomingMilestones').html(html);
+        }
+
+        function loadTimeline() {
+            const updates = [
+                { date: '2024-03-15', project: 'E-commerce Site', update: 'Completed frontend development' },
+                { date: '2024-03-14', project: 'Mobile App', update: 'Design approved' },
+                { date: '2024-03-13', project: 'API Integration', update: 'Database schema finalized' }
+            ];
+
+            let html = '';
+            updates.forEach(u => {
+                html += `
+                    <div class="timeline-item">
+                        <div class="mb-1">
+                            <strong>${u.project}</strong>
+                            <small class="text-muted float-end">${u.date}</small>
+                        </div>
+                        <p class="mb-0">${u.update}</p>
+                    </div>
+                `;
+            });
+            $('#projectTimeline').html(html);
+        }
+
+        function loadDocuments() {
+            const documents = [
+                { name: 'Project Proposal.pdf', type: 'PDF', size: '2.5 MB', date: '2024-03-15' },
+                { name: 'Design Mockups.zip', type: 'ZIP', size: '15 MB', date: '2024-03-14' },
+                { name: 'Technical Specs.docx', type: 'DOCX', size: '1.2 MB', date: '2024-03-13' }
+            ];
+
+            let html = '';
+            documents.forEach(d => {
+                html += `
+                    <div class="col-md-4">
+                        <div class="document-item">
+                            <i class="bi bi-file-earmark-text fs-2 text-primary"></i>
+                            <h6 class="mb-1">${d.name}</h6>
+                            <small class="text-muted">${d.size} • ${d.date}</small>
+                            <br>
+                            <button class="btn btn-sm btn-outline-primary mt-2" onclick="downloadDocument('${d.name}')">
+                                <i class="bi bi-download"></i> Download
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            $('#recentDocuments').html(html);
+        }
+
+        function viewProject(projectName) {
+            alert(`Viewing details for ${projectName}`);
+        }
+
+        function downloadDocument(fileName) {
+            alert(`Downloading ${fileName}`);
+        }
+
+        function viewAllDocuments() {
+            window.location.href = '/ClientDocument';
+        }
+    </script>
+}

@@ -1,0 +1,432 @@
+﻿<!-- Views/ManagerTask/Index.cshtml -->
+@{
+    ViewData["Title"] = "Team Tasks";
+    Layout = "_ManagerLayout";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="h3">Team Tasks</h2>
+    <div>
+        <button class="btn btn-outline-primary me-2" onclick="exportTasks()">
+            <i class="bi bi-download"></i> Export
+        </button>
+        <button class="btn btn-success" onclick="openAssignTaskModal()">
+            <i class="bi bi-plus-circle"></i> Assign New Task
+        </button>
+    </div>
+</div>
+
+<!-- Task Statistics -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="stat-card">
+            <div class="d-flex align-items-center">
+                <div class="stat-icon bg-info bg-opacity-10 text-info me-3">
+                    <i class="bi bi-list-task"></i>
+                </div>
+                <div>
+                    <p class="text-muted mb-1">Total Tasks</p>
+                    <h3 class="mb-0">45</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stat-card">
+            <div class="d-flex align-items-center">
+                <div class="stat-icon bg-success bg-opacity-10 text-success me-3">
+                    <i class="bi bi-check-circle"></i>
+                </div>
+                <div>
+                    <p class="text-muted mb-1">Completed</p>
+                    <h3 class="mb-0">28</h3>
+                    <small>62%</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stat-card">
+            <div class="d-flex align-items-center">
+                <div class="stat-icon bg-warning bg-opacity-10 text-warning me-3">
+                    <i class="bi bi-hourglass"></i>
+                </div>
+                <div>
+                    <p class="text-muted mb-1">In Progress</p>
+                    <h3 class="mb-0">12</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stat-card">
+            <div class="d-flex align-items-center">
+                <div class="stat-icon bg-danger bg-opacity-10 text-danger me-3">
+                    <i class="bi bi-exclamation-triangle"></i>
+                </div>
+                <div>
+                    <p class="text-muted mb-1">Overdue</p>
+                    <h3 class="mb-0">5</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Task Filters -->
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-3">
+                <select class="form-select" id="taskStatusFilter">
+                    <option value="">All Status</option>
+                    <option value="pending">Pending</option>
+                    <option value="in-progress">In Progress</option>
+                    <option value="completed">Completed</option>
+                    <option value="overdue">Overdue</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select class="form-select" id="taskPriorityFilter">
+                    <option value="">All Priorities</option>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                    <option value="critical">Critical</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select class="form-select" id="taskAssigneeFilter">
+                    <option value="">All Team Members</option>
+                    <option value="sarah">Sarah Johnson</option>
+                    <option value="mike">Mike Chen</option>
+                    <option value="emily">Emily Brown</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control" id="searchTask" placeholder="Search tasks...">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Task Tabs -->
+<ul class="nav nav-tabs mb-4" id="taskTabs" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" data-bs-toggle="tab" href="#list">List View</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#board">Board View</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#calendar">Calendar</a>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <!-- List View -->
+    <div class="tab-pane fade show active" id="list">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Task</th>
+                                <th>Assigned To</th>
+                                <th>Priority</th>
+                                <th>Status</th>
+                                <th>Due Date</th>
+                                <th>Progress</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tasksList">
+                            <!-- Tasks will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Board View -->
+    <div class="tab-pane fade" id="board">
+        <div class="row" id="taskBoard">
+            <!-- Board columns will be populated here -->
+        </div>
+    </div>
+
+    <!-- Calendar View -->
+    <div class="tab-pane fade" id="calendar">
+        <div class="card">
+            <div class="card-body">
+                <div id="taskCalendar"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Task Details Modal -->
+<div class="modal fade" id="taskDetailsModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Task Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="taskDetailsContent">
+                <!-- Task details will be loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="editTask()">Edit</button>
+                <button type="button" class="btn btn-success" onclick="updateTaskStatus('completed')">Mark Complete</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            loadTasks();
+            initializeCalendar();
+        });
+
+        function loadTasks() {
+            const tasks = [
+                { id: 1, title: 'Implement user authentication', assignee: 'Mike Chen', priority: 'High', status: 'In Progress', due: '2024-01-20', progress: 75, description: 'Add JWT authentication to the API' },
+                { id: 2, title: 'Design homepage mockup', assignee: 'Emily Brown', priority: 'Medium', status: 'Pending', due: '2024-01-22', progress: 0, description: 'Create responsive homepage design' },
+                { id: 3, title: 'Fix login page bug', assignee: 'David Wilson', priority: 'Critical', status: 'In Progress', due: '2024-01-18', progress: 50, description: 'Resolve 500 error on login page' },
+                { id: 4, title: 'Write API documentation', assignee: 'Sarah Johnson', priority: 'Low', status: 'Completed', due: '2024-01-15', progress: 100, description: 'Document all API endpoints' },
+                { id: 5, title: 'Database optimization', assignee: 'Mike Chen', priority: 'High', status: 'Overdue', due: '2024-01-10', progress: 30, description: 'Optimize slow queries' }
+            ];
+
+            displayTaskList(tasks);
+            displayTaskBoard(tasks);
+        }
+
+        function displayTaskList(tasks) {
+            let html = '';
+            tasks.forEach(task => {
+                let priorityClass = task.priority === 'Critical' ? 'danger' :
+                                   task.priority === 'High' ? 'warning' :
+                                   task.priority === 'Medium' ? 'info' : 'success';
+
+                let statusClass = task.status === 'Completed' ? 'success' :
+                                 task.status === 'In Progress' ? 'info' :
+                                 task.status === 'Overdue' ? 'danger' : 'secondary';
+
+                let progressClass = task.progress >= 75 ? 'bg-success' :
+                                   task.progress >= 50 ? 'bg-info' :
+                                   task.progress >= 25 ? 'bg-warning' : 'bg-danger';
+
+                html += `
+                    <tr>
+                        <td>
+                            <strong>${task.title}</strong>
+                            <br>
+                            <small class="text-muted">${task.description.substring(0, 30)}...</small>
+                        </td>
+                        <td>${task.assignee}</td>
+                        <td><span class="badge bg-${priorityClass}">${task.priority}</span></td>
+                        <td><span class="badge bg-${statusClass}">${task.status}</span></td>
+                        <td>${moment(task.due).format('MMM DD, YYYY')}</td>
+                        <td style="width: 150px;">
+                            <div class="progress">
+                                <div class="progress-bar ${progressClass}" style="width: ${task.progress}%">${task.progress}%</div>
+                            </div>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-info" onclick="viewTask(${task.id})">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-primary" onclick="editTask(${task.id})">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-sm btn-success" onclick="reassignTask(${task.id})">
+                                <i class="bi bi-arrow-repeat"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+            $('#tasksList').html(html);
+        }
+
+        function displayTaskBoard(tasks) {
+            const columns = [
+                { title: 'Pending', status: 'Pending', color: 'secondary' },
+                { title: 'In Progress', status: 'In Progress', color: 'info' },
+                { title: 'Completed', status: 'Completed', color: 'success' },
+                { title: 'Overdue', status: 'Overdue', color: 'danger' }
+            ];
+
+            let boardHtml = '';
+            columns.forEach(column => {
+                const columnTasks = tasks.filter(t => t.status === column.status);
+
+                boardHtml += `
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-header bg-${column.color} text-white">
+                                ${column.title} (${columnTasks.length})
+                            </div>
+                            <div class="card-body" style="min-height: 400px;"
+                                 ondrop="dropTask(event)" ondragover="allowDrop(event)">
+                                ${columnTasks.map(task => `
+                                    <div class="card mb-2 task-card priority-${task.priority.toLowerCase()}"
+                                         draggable="true" ondragstart="dragTask(event, ${task.id})">
+                                        <div class="card-body p-2">
+                                            <h6 class="card-title">${task.title}</h6>
+                                            <p class="card-text small">
+                                                <i class="bi bi-person"></i> ${task.assignee}<br>
+                                                <i class="bi bi-calendar"></i> ${moment(task.due).format('MMM DD')}
+                                            </p>
+                                            <span class="badge bg-${task.priority === 'Critical' ? 'danger' :
+                                                                        task.priority === 'High' ? 'warning' :
+                                                                        task.priority === 'Medium' ? 'info' : 'success'}">
+                                                ${task.priority}
+                                            </span>
+                                            <div class="progress mt-2" style="height: 5px;">
+                                                <div class="progress-bar" style="width: ${task.progress}%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            $('#taskBoard').html(boardHtml);
+        }
+
+        function initializeCalendar() {
+            $('#taskCalendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                events: [
+                    { title: 'Implement authentication', start: '2024-01-20', color: '#f6c23e' },
+                    { title: 'Design review', start: '2024-01-22', color: '#1cc88a' },
+                    { title: 'Bug fix', start: '2024-01-18', color: '#e74a3b' }
+                ],
+                eventClick: function(event) {
+                    viewTask(event.id);
+                }
+            });
+        }
+
+        function viewTask(id) {
+            const task = {
+                title: 'Implement user authentication',
+                description: 'Add JWT authentication to the API including login, register, and refresh token endpoints.',
+                assignee: 'Mike Chen',
+                priority: 'High',
+                status: 'In Progress',
+                createdDate: '2024-01-15',
+                dueDate: '2024-01-20',
+                progress: 75,
+                subtasks: [
+                    { name: 'Create login endpoint', completed: true },
+                    { name: 'Add JWT middleware', completed: true },
+                    { name: 'Implement refresh token', completed: false },
+                    { name: 'Write unit tests', completed: false }
+                ],
+                comments: [
+                    { user: 'Sarah Johnson', text: 'Please add rate limiting', date: '2024-01-16' },
+                    { user: 'Mike Chen', text: 'Will do', date: '2024-01-16' }
+                ]
+            };
+
+            let html = `
+                <h5>${task.title}</h5>
+                <p class="text-muted">${task.description}</p>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <strong>Assigned To:</strong> ${task.assignee}<br>
+                        <strong>Priority:</strong> <span class="badge bg-warning">${task.priority}</span><br>
+                        <strong>Status:</strong> <span class="badge bg-info">${task.status}</span>
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Created:</strong> ${task.createdDate}<br>
+                        <strong>Due:</strong> ${task.dueDate}<br>
+                        <strong>Progress:</strong> ${task.progress}%
+                    </div>
+                </div>
+
+                <h6>Subtasks</h6>
+                <ul class="list-group mb-3">
+                    ${task.subtasks.map(sub => `
+                        <li class="list-group-item">
+                            <input type="checkbox" class="form-check-input me-2" ${sub.completed ? 'checked' : ''} disabled>
+                            ${sub.name}
+                        </li>
+                    `).join('')}
+                </ul>
+
+                <h6>Comments</h6>
+                <div class="comments-section">
+                    ${task.comments.map(comment => `
+                        <div class="mb-2">
+                            <strong>${comment.user}</strong> <small class="text-muted">${comment.date}</small>
+                            <p class="mb-0">${comment.text}</p>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <textarea class="form-control mt-3" placeholder="Add a comment..." rows="2"></textarea>
+            `;
+
+            $('#taskDetailsContent').html(html);
+            $('#taskDetailsModal').modal('show');
+        }
+
+        function dragTask(event, taskId) {
+            event.dataTransfer.setData('text/plain', taskId);
+        }
+
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        function dropTask(event) {
+            event.preventDefault();
+            const taskId = event.dataTransfer.getData('text/plain');
+            const newStatus = $(event.target).closest('.card-body').parent().find('.card-header').text().split(' ')[0];
+
+            updateTaskStatus(taskId, newStatus);
+        }
+
+        function updateTaskStatus(taskId, status) {
+            showNotification(`Task ${taskId} moved to ${status}`, 'success');
+            loadTasks(); // Reload tasks
+        }
+
+        function openAssignTaskModal() {
+            $('#assignTaskModal').modal('show');
+        }
+
+        function reassignTask(taskId) {
+            $('#assignTaskModal').modal('show');
+        }
+
+        function exportTasks() {
+            window.location.href = '/ManagerTask/Export';
+        }
+
+        function editTask(taskId) {
+            alert(`Edit task ${taskId}`);
+        }
+
+        function showNotification(message, type) {
+            alert(message);
+        }
+    </script>
+}

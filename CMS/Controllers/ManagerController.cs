@@ -14,10 +14,31 @@ namespace CMS.Controllers
             ViewBag.UserRole = User.FindFirst(ClaimTypes.Role)?.Value;
             return View();
         }
-
+        public IActionResult Index()
+        {
+            return View();
+        }
+        public IActionResult Team()
+        {
+            return View();
+        }
         public IActionResult Task()
         {
             return View();
         }
+
+        public IActionResult Reports()
+        {
+            return View();
+        }
+        public IActionResult Analytics()
+        {
+            return View();
+        }
+        public IActionResult Profile()
+        {
+            return View();
+        }
+
     }
 }

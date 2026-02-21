@@ -197,30 +197,30 @@
 
             <ul class="list-unstyled components">
                 <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "Manager" && ViewContext.RouteData.Values["action"].ToString() == "Index" ? "active" : "")">
-                    <a href="@Url.Action("Index", "Manager")">
+                    <a href="@Url.Action("Dashboard", "Manager")">
                         <i class="bi bi-speedometer2"></i> Dashboard
                     </a>
                 </li>
                 <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "ManagerTeam" ? "active" : "")">
-                    <a href="@Url.Action("Index", "ManagerTeam")">
+                    <a href="@Url.Action("Team", "Manager")">
                         <i class="bi bi-people"></i> My Team
                         <span class="badge bg-warning float-end" id="teamCount">8</span>
                     </a>
                 </li>
                 <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "ManagerTask" ? "active" : "")">
-                    <a href="@Url.Action("Index", "ManagerTask")">
+                    <a href="@Url.Action("Task", "Manager")">
                         <i class="bi bi-check2-square"></i> Tasks
                         <span class="badge bg-danger float-end" id="pendingTaskCount">3</span>
                     </a>
                 </li>
                 <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "ManagerReport" ? "active" : "")">
-                    <a href="@Url.Action("Index", "ManagerReport")">
+                    <a href="@Url.Action("Reports", "Manager")">
                         <i class="bi bi-file-text"></i> Reports
                         <span class="badge bg-info float-end" id="pendingReportCount">2</span>
                     </a>
                 </li>
                 <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "ManagerAnalytics" ? "active" : "")">
-                    <a href="@Url.Action("Index", "ManagerAnalytics")">
+                    <a href="@Url.Action("Analytics", "Manager")">
                         <i class="bi bi-graph-up"></i> Analytics
                     </a>
                 </li>
