@@ -11,35 +11,27 @@ public class HomeController : Controller
         _configuration = configuration;
     }
 
-    //public IActionResult TestDb()
-    //{
-    //    string message;
 
-    //    try
-    //    {
-    //        var connStr = _configuration.GetConnectionString("DefaultConnection");
-
-    //        using var conn = new SqlConnection(connStr);
-    //        conn.Open();
-
-    //        message = "? Database connected successfully!";
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        message = "? Connection failed: " + ex.Message;
-    //    }
-
-    //    // Pass message to the view
-    //    ViewBag.DbStatus = message;
-    //    return View();
-    //}
     public IActionResult Index()
     {
         return View();
     }
-
-    public IActionResult Privacy()
+    public IActionResult About()
     {
         return View();
-    }   
+    }
+    public IActionResult Services()
+    {
+        return View();
+    }
+    public IActionResult Pricing()
+    {
+        return View();
+    }
+    public IActionResult ContactUs()
+    {
+        return View();
+    }
+
+   
 }

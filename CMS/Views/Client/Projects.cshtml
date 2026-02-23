@@ -1,0 +1,422 @@
+﻿@{
+    ViewData["Title"] = "My Projects";
+    Layout = "_ClientLayout";
+}
+
+<div class="container-fluid">
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="h3">
+            <i class="bi bi-folder text-primary me-2"></i>My Projects
+        </h2>
+        <div>
+            <button class="btn btn-outline-primary me-2" onclick="exportProjects()">
+                <i class="bi bi-download"></i> Export
+            </button>
+            <button class="btn btn-primary" onclick="requestNewProject()">
+                <i class="bi bi-plus-circle"></i> New Project Request
+            </button>
+        </div>
+    </div>
+
+    <!-- Project Statistics -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h6>Total Projects</h6>
+                    <h2 id="totalProjects">0</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <h6>In Progress</h6>
+                    <h2 id="inProgressProjects">0</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-info text-white">
+                <div class="card-body">
+                    <h6>Completed</h6>
+                    <h2 id="completedProjects">0</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-warning text-white">
+                <div class="card-body">
+                    <h6>On Hold</h6>
+                    <h2 id="onHoldProjects">0</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <select class="form-select" id="statusFilter">
+                        <option value="">All Status</option>
+                        <option value="InProgress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                        <option value="OnHold">On Hold</option>
+                        <option value="NotStarted">Not Started</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="searchProject"
+                           placeholder="Search projects...">
+                </div>
+                <div class="col-md-3">
+                    <select class="form-select" id="sortBy">
+                        <option value="name">Sort by Name</option>
+                        <option value="progress">Sort by Progress</option>
+                        <option value="date">Sort by Date</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-primary w-100" onclick="applyFilters()">
+                        <i class="bi bi-funnel"></i> Apply Filters
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="row" id="projectsGrid">
+        <!-- Projects will be loaded here -->
+    </div>
+</div>
+
+<!-- Project Details Modal -->
+<div class="modal fade" id="projectDetailsModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Project Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="projectDetailsContent">
+                <!-- Project details will be loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="sendProjectMessage()">
+                    <i class="bi bi-envelope"></i> Message Team
+                </button>
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- New Project Request Modal -->
+<div class="modal fade" id="newProjectModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Request New Project</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="newProjectForm">
+                    <div class="mb-3">
+                        <label class="form-label">Project Name</label>
+                        <input type="text" class="form-control" name="projectName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" name="description" rows="4" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Estimated Budget</label>
+                        <input type="number" class="form-control" name="budget" step="1000">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Preferred Start Date</label>
+                        <input type="date" class="form-control" name="startDate">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="submitProjectRequest()">Submit Request</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            loadProjects();
+            loadProjectStats();
+        });
+
+        function loadProjects() {
+            $.get('/api/client/projects', function(projects) {
+                displayProjects(projects);
+            });
+        }
+
+        function loadProjectStats() {
+            $.get('/api/client/projects/stats', function(stats) {
+                $('#totalProjects').text(stats.total);
+                $('#inProgressProjects').text(stats.inProgress);
+                $('#completedProjects').text(stats.completed);
+                $('#onHoldProjects').text(stats.onHold);
+            });
+        }
+
+        function displayProjects(projects) {
+            let html = '';
+            projects.forEach(p => {
+                let statusClass = getStatusClass(p.status);
+                let progressColor = p.progress >= 75 ? 'success' :
+                                   p.progress >= 50 ? 'info' :
+                                   p.progress >= 25 ? 'warning' : 'danger';
+
+                html += `
+                    <div class="col-md-4 mb-4">
+                        <div class="card project-card h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <h5 class="card-title mb-0">${p.projectName}</h5>
+                                    <span class="badge bg-${statusClass}">${p.status}</span>
+                                </div>
+                                <p class="card-text text-muted small">${p.description || 'No description'}</p>
+
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between small mb-1">
+                                        <span>Progress</span>
+                                        <span>${p.progress}%</span>
+                                    </div>
+                                    <div class="progress" style="height: 8px;">
+                                        <div class="progress-bar bg-${progressColor}"
+                                             style="width: ${p.progress}%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="row text-center mb-3">
+                                    <div class="col-4">
+                                        <small class="text-muted d-block">Start</small>
+                                        <strong>${formatDate(p.startDate)}</strong>
+                                    </div>
+                                    <div class="col-4">
+                                        <small class="text-muted d-block">End</small>
+                                        <strong>${formatDate(p.estimatedEndDate) || 'TBD'}</strong>
+                                    </div>
+                                    <div class="col-4">
+                                        <small class="text-muted d-block">Budget</small>
+                                        <strong>$${p.budget?.toLocaleString() || '0'}</strong>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <i class="bi bi-flag text-warning me-1"></i>
+                                        <small>${p.milestones?.filter(m => m.status === 'Completed').length || 0}/${p.milestones?.length || 0} milestones</small>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-primary"
+                                            onclick="viewProjectDetails(${p.id})">
+                                        View Details
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            if (projects.length === 0) {
+                html = '<div class="col-12 text-center py-5"><p class="text-muted">No projects found</p></div>';
+            }
+
+            $('#projectsGrid').html(html);
+        }
+
+        function viewProjectDetails(id) {
+            $.get(`/api/client/projects/${id}`, function(project) {
+                let milestonesHtml = '';
+                project.milestones.forEach(m => {
+                    let statusClass = m.status === 'Completed' ? 'success' :
+                                     m.status === 'InProgress' ? 'info' : 'secondary';
+                    milestonesHtml += `
+                        <tr>
+                            <td>${m.title}</td>
+                            <td>${formatDate(m.dueDate)}</td>
+                            <td><span class="badge bg-${statusClass}">${m.status}</span></td>
+                            ${m.completedDate ? `<td>${formatDate(m.completedDate)}</td>` : '<td>-</td>'}
+                        </tr>
+                    `;
+                });
+
+                let updatesHtml = '';
+                project.updates.forEach(u => {
+                    updatesHtml += `
+                        <div class="timeline-item">
+                            <div class="d-flex">
+                                <div class="timeline-icon bg-info bg-opacity-10 text-info me-3">
+                                    <i class="bi bi-arrow-repeat"></i>
+                                </div>
+                                <div>
+                                    <strong>${u.title}</strong>
+                                    <p class="mb-0">${u.content}</p>
+                                    <small class="text-muted">${timeAgo(u.postedAt)} • ${u.postedBy}</small>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                let html = `
+                    <div class="container-fluid">
+                        <h5>${project.projectName}</h5>
+                        <p class="text-muted">${project.description}</p>
+
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <strong>Project Manager:</strong> ${project.projectManager?.name || 'TBD'}<br>
+                                <strong>Status:</strong> <span class="badge bg-${getStatusClass(project.status)}">${project.status}</span>
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Start Date:</strong> ${formatDate(project.startDate)}<br>
+                                <strong>Estimated Completion:</strong> ${formatDate(project.estimatedEndDate) || 'TBD'}
+                            </div>
+                        </div>
+
+                        <ul class="nav nav-tabs mb-3" id="projectTabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-bs-toggle="tab" href="#milestones">Milestones</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#updates">Updates</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#documents">Documents</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="milestones">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Milestone</th>
+                                            <th>Due Date</th>
+                                            <th>Status</th>
+                                            <th>Completed</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${milestonesHtml || '<tr><td colspan="4" class="text-center">No milestones</td></tr>'}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="tab-pane fade" id="updates">
+                                <div class="timeline">
+                                    ${updatesHtml || '<p class="text-center">No updates</p>'}
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="documents">
+                                <!-- Documents will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                $('#projectDetailsContent').html(html);
+                $('#projectDetailsModal').modal('show');
+            });
+        }
+
+        function applyFilters() {
+            const status = $('#statusFilter').val();
+            const search = $('#searchProject').val().toLowerCase();
+            const sort = $('#sortBy').val();
+
+            // Filter and sort logic would go here
+            loadProjects(); // Reload with filters
+        }
+
+        function requestNewProject() {
+            $('#newProjectModal').modal('show');
+        }
+
+        function submitProjectRequest() {
+            const formData = {
+                projectName: $('input[name="projectName"]').val(),
+                description: $('textarea[name="description"]').val(),
+                budget: $('input[name="budget"]').val(),
+                startDate: $('input[name="startDate"]').val()
+            };
+
+            $.ajax({
+                url: '/api/client/projects/request',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(formData),
+                success: function() {
+                    $('#newProjectModal').modal('hide');
+                    $('#newProjectForm')[0].reset();
+                    showNotification('Project request submitted successfully', 'success');
+                },
+                error: function(xhr) {
+                    showNotification('Error submitting request: ' + xhr.responseText, 'error');
+                }
+            });
+        }
+
+        function sendProjectMessage() {
+            $('#projectDetailsModal').modal('hide');
+            $('#quickMessageModal').modal('show');
+        }
+
+        function exportProjects() {
+            window.location.href = '/api/client/projects/export';
+        }
+
+        function getStatusClass(status) {
+            const classes = {
+                'NotStarted': 'secondary',
+                'InProgress': 'primary',
+                'OnHold': 'warning',
+                'Completed': 'success',
+                'Cancelled': 'danger'
+            };
+            return classes[status] || 'secondary';
+        }
+
+        function formatDate(dateString) {
+            if (!dateString) return 'N/A';
+            return new Date(dateString).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        function timeAgo(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffDays = Math.floor((now - date) / (1000 * 60 * 60 * 24));
+
+            if (diffDays === 0) return 'Today';
+            if (diffDays === 1) return 'Yesterday';
+            if (diffDays < 7) return diffDays + ' days ago';
+            if (diffDays < 30) return Math.floor(diffDays / 7) + ' weeks ago';
+            return formatDate(dateString);
+        }
+
+        function showNotification(message, type) {
+            alert(message);
+        }
+    </script>
+}

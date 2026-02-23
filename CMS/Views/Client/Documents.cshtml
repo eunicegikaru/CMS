@@ -1,0 +1,144 @@
+﻿<!-- Views/Client/Documents.cshtml -->
+@{
+    ViewData["Title"] = "Documents";
+    Layout = "_ClientLayout";
+}
+
+<div class="container-fluid px-0">
+    <!-- Header -->
+    <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
+        <h2 class="h3 mb-0">Documents</h2>
+        <button class="btn btn-primary" onclick="openUploadDocumentModal()">
+            <i class="bi bi-upload me-2"></i>Upload Document
+        </button>
+    </div>
+
+    <!-- Filters -->
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <select class="form-select" id="projectFilter">
+                        <option value="">All Projects</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-select" id="categoryFilter">
+                        <option value="">All Categories</option>
+                        <option value="Contract">Contract</option>
+                        <option value="Report">Report</option>
+                        <option value="Design">Design</option>
+                        <option value="Specification">Specification</option>
+                        <option value="Invoice">Invoice</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="searchDocument" placeholder="Search documents...">
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-outline-secondary w-100" onclick="resetFilters()">
+                        <i class="bi bi-arrow-counterclockwise me-2"></i>Reset Filters
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Documents Grid -->
+    <div class="row g-4" id="documentsGrid">
+        <!-- Documents will be loaded here -->
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            loadProjectsForFilter();
+            loadDocuments();
+
+            $('#projectFilter, #categoryFilter, #searchDocument').on('change keyup', function() {
+                loadDocuments();
+            });
+        });
+
+        function loadProjectsForFilter() {
+            $.ajax({
+                url: '/api/client/projects/list',
+                method: 'GET',
+                success: function(projects) {
+                    let options = '<option value="">All Projects</option>';
+                    projects.forEach(function(p) {
+                        options += `<option value="${p.id}">${p.projectName}</option>`;
+                    });
+                    $('#projectFilter').html(options);
+                }
+            });
+        }
+
+        function loadDocuments() {
+            const filters = {
+                projectId: $('#projectFilter').val(),
+                category: $('#categoryFilter').val(),
+                search: $('#searchDocument').val()
+            };
+
+            showLoading();
+
+            $.ajax({
+                url: '/api/client/documents',
+                method: 'GET',
+                data: filters,
+                success: function(documents) {
+                    displayDocuments(documents);
+                    hideLoading();
+                },
+                error: function(xhr) {
+                    hideLoading();
+                    showNotification('Error loading documents', 'error');
+                }
+            });
+        }
+
+        function displayDocuments(documents) {
+            let html = '';
+
+            if (documents.length === 0) {
+                html = '<div class="col-12 text-center py-5"><i class="bi bi-files display-1 text-muted"></i><h5 class="mt-3">No documents found</h5></div>';
+            } else {
+                documents.forEach(function(d) {
+                    const icon = d.fileType === '.pdf' ? 'bi-file-pdf' :
+                                d.fileType === '.doc' || d.fileType === '.docx' ? 'bi-file-word' :
+                                d.fileType === '.xls' || d.fileType === '.xlsx' ? 'bi-file-excel' :
+                                d.fileType === '.jpg' || d.fileType === '.png' ? 'bi-file-image' : 'bi-file-text';
+
+                    html += `
+                        <div class="col-md-4 col-lg-3">
+                            <div class="document-item text-center" onclick="downloadDocument(${d.id})">
+                                <i class="bi ${icon} document-icon"></i>
+                                <h6 class="mb-1">${d.title}</h6>
+                                <p class="small text-muted mb-2">${d.projectName || 'General'}</p>
+                                <div class="small text-muted">
+                                    ${formatFileSize(d.fileSize)} • ${formatDate(d.uploadedAt)}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            $('#documentsGrid').html(html);
+        }
+
+        function resetFilters() {
+            $('#projectFilter').val('');
+            $('#categoryFilter').val('');
+            $('#searchDocument').val('');
+            loadDocuments();
+        }
+
+        function downloadDocument(id) {
+            window.location.href = `/api/client/documents/${id}/download`;
+        }
+    </script>
+}

@@ -1,0 +1,746 @@
+﻿@{
+    ViewData["Title"] = "My Profile";
+    Layout = "_ClientLayout";
+}
+
+<div class="container-fluid">
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="h3">
+            <i class="bi bi-person-circle text-primary me-2"></i>My Profile
+        </h2>
+    </div>
+
+    <div class="row">
+        <!-- Profile Card -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <div class="position-relative d-inline-block">
+                        <div class="avatar-circle bg-primary text-white"
+                             style="width: 120px; height: 120px; font-size: 48px; margin: 0 auto;"
+                             id="profileAvatar">
+                            <span id="avatarInitials">JD</span>
+                        </div>
+                        <button class="btn btn-sm btn-primary position-absolute bottom-0 end-0 rounded-circle"
+                                onclick="changePhoto()" style="width: 35px; height: 35px;">
+                            <i class="bi bi-camera"></i>
+                        </button>
+                    </div>
+                    <h4 class="mt-3" id="profileName">John Doe</h4>
+                    <p class="text-muted" id="profileCompany">Acme Corporation</p>
+                    <p class="text-muted small" id="profileMemberSince">Member since Jan 2024</p>
+
+                    <div class="d-grid gap-2 mt-3">
+                        <button class="btn btn-outline-primary" onclick="editProfile()">
+                            <i class="bi bi-pencil"></i> Edit Profile
+                        </button>
+                        <button class="btn btn-outline-info" onclick="changePassword()">
+                            <i class="bi bi-key"></i> Change Password
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Account Stats -->
+            <div class="card shadow-sm mt-4">
+                <div class="card-header bg-white">
+                    <h6 class="mb-0">Account Statistics</h6>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-3">
+                        <span>Total Projects</span>
+                        <span class="badge bg-primary" id="statProjects">0</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span>Active Projects</span>
+                        <span class="badge bg-success" id="statActiveProjects">0</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span>Total Invoices</span>
+                        <span class="badge bg-info" id="statInvoices">0</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span>Documents</span>
+                        <span class="badge bg-warning" id="statDocuments">0</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>Messages</span>
+                        <span class="badge bg-danger" id="statMessages">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Details -->
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#personal">Personal Info</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#company">Company Details</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#security">Security</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#preferences">Preferences</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#activity">Activity Log</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content">
+                        <!-- Personal Info Tab -->
+                        <div class="tab-pane fade show active" id="personal">
+                            <form id="personalInfoForm">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">First Name</label>
+                                        <input type="text" class="form-control" id="firstName" value="John" readonly>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" id="lastName" value="Doe" readonly>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="email" value="john.doe@example.com" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phone" value="+1 (555) 123-4567" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Alternative Phone</label>
+                                    <input type="tel" class="form-control" id="altPhone" value="+1 (555) 987-6543" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Date of Birth</label>
+                                    <input type="date" class="form-control" id="dob" value="1985-06-15" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Address</label>
+                                    <textarea class="form-control" id="address" rows="2" readonly>123 Business Ave, Suite 100, San Francisco, CA 94105</textarea>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Company Details Tab -->
+                        <div class="tab-pane fade" id="company">
+                            <form id="companyInfoForm">
+                                <div class="mb-3">
+                                    <label class="form-label">Company Name</label>
+                                    <input type="text" class="form-control" id="companyName" value="Acme Corporation" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Industry</label>
+                                    <input type="text" class="form-control" id="industry" value="Technology" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Company Size</label>
+                                    <select class="form-select" id="companySize" disabled>
+                                        <option>1-10 employees</option>
+                                        <option selected>11-50 employees</option>
+                                        <option>51-200 employees</option>
+                                        <option>201-500 employees</option>
+                                        <option>500+ employees</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Website</label>
+                                    <input type="url" class="form-control" id="website" value="https://www.acme.com" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Tax ID / VAT Number</label>
+                                    <input type="text" class="form-control" id="taxId" value="123456789" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Billing Address</label>
+                                    <textarea class="form-control" id="billingAddress" rows="2" readonly>123 Business Ave, Suite 100, San Francisco, CA 94105</textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Shipping Address</label>
+                                    <textarea class="form-control" id="shippingAddress" rows="2" readonly>123 Business Ave, Suite 100, San Francisco, CA 94105</textarea>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Security Tab -->
+                        <div class="tab-pane fade" id="security">
+                            <h6 class="mb-3">Two-Factor Authentication</h6>
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <div>
+                                    <p class="mb-0">Secure your account with 2FA</p>
+                                    <small class="text-muted">Add an extra layer of security</small>
+                                </div>
+                                <button class="btn btn-outline-primary" onclick="enable2FA()">
+                                    Enable 2FA
+                                </button>
+                            </div>
+
+                            <h6 class="mb-3">Login Sessions</h6>
+                            <div class="list-group mb-4" id="activeSessions">
+                                <!-- Active sessions will be loaded here -->
+                            </div>
+
+                            <h6 class="mb-3">Recent Login History</h6>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Date & Time</th>
+                                            <th>IP Address</th>
+                                            <th>Device</th>
+                                            <th>Location</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="loginHistory">
+                                        <!-- Login history will be loaded here -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="alert alert-warning mt-4">
+                                <i class="bi bi-exclamation-triangle"></i>
+                                <strong>Danger Zone</strong>
+                                <p class="mb-2">Permanently delete your account and all associated data</p>
+                                <button class="btn btn-danger btn-sm" onclick="deleteAccount()">
+                                    Delete Account
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Preferences Tab -->
+                        <div class="tab-pane fade" id="preferences">
+                            <h6 class="mb-3">Notification Preferences</h6>
+
+                            <div class="mb-4">
+                                <label class="form-label">Email Notifications</label>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="notifyProjectUpdates" checked>
+                                    <label class="form-check-label">Project Updates</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="notifyInvoices" checked>
+                                    <label class="form-check-label">Invoice Alerts</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="notifyMessages" checked>
+                                    <label class="form-check-label">New Messages</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="notifyMarketing">
+                                    <label class="form-check-label">Marketing Emails</label>
+                                </div>
+                            </div>
+
+                            <h6 class="mb-3">Display Preferences</h6>
+                            <div class="mb-3">
+                                <label class="form-label">Language</label>
+                                <select class="form-select" id="language">
+                                    <option value="en" selected>English</option>
+                                    <option value="es">Spanish</option>
+                                    <option value="fr">French</option>
+                                    <option value="de">German</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Time Zone</label>
+                                <select class="form-select" id="timezone">
+                                    <option value="EST" selected>Eastern Time</option>
+                                    <option value="CST">Central Time</option>
+                                    <option value="MST">Mountain Time</option>
+                                    <option value="PST">Pacific Time</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Date Format</label>
+                                <select class="form-select" id="dateFormat">
+                                    <option value="MM/DD/YYYY" selected>MM/DD/YYYY</option>
+                                    <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                                    <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                                </select>
+                            </div>
+
+                            <button class="btn btn-primary" onclick="savePreferences()">
+                                Save Preferences
+                            </button>
+                        </div>
+
+                        <!-- Activity Log Tab -->
+                        <div class="tab-pane fade" id="activity">
+                            <div class="timeline" id="activityTimeline">
+                                <!-- Activity timeline will be loaded here -->
+                            </div>
+                            <div class="text-center mt-3">
+                                <button class="btn btn-link" onclick="loadMoreActivity()">
+                                    Load More
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Profile Modal -->
+<div class="modal fade" id="editProfileModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Profile</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editProfileForm">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="editFirstName" value="John">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="editLastName" value="Doe">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" id="editPhone" value="+1 (555) 123-4567">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Alternative Phone</label>
+                        <input type="tel" class="form-control" id="editAltPhone" value="+1 (555) 987-6543">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Date of Birth</label>
+                        <input type="date" class="form-control" id="editDob" value="1985-06-15">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Address</label>
+                        <textarea class="form-control" id="editAddress" rows="2">123 Business Ave, Suite 100, San Francisco, CA 94105</textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="saveProfile()">Save Changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Change Password Modal -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Change Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="changePasswordForm">
+                    <div class="mb-3">
+                        <label class="form-label">Current Password</label>
+                        <input type="password" class="form-control" id="currentPassword" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">New Password</label>
+                        <input type="password" class="form-control" id="newPassword" required>
+                        <div class="progress mt-2" style="height: 5px;">
+                            <div class="progress-bar" id="passwordStrength" style="width: 0%"></div>
+                        </div>
+                        <small class="text-muted">Use at least 8 characters with letters and numbers</small>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Confirm New Password</label>
+                        <input type="password" class="form-control" id="confirmPassword" required>
+                        <div class="invalid-feedback" id="passwordMatchFeedback"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="updatePassword()">Update Password</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Change Photo Modal -->
+<div class="modal fade" id="changePhotoModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Change Profile Photo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="mb-3">
+                    <img src="/images/default-avatar.png" id="photoPreview" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
+                </div>
+                <div class="mb-3">
+                    <input type="file" class="form-control" id="photoUpload" accept="image/*" onchange="previewPhoto()">
+                </div>
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle"></i>
+                    Max file size: 5MB. Supported formats: JPG, PNG, GIF
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="uploadPhoto()">Upload Photo</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            loadProfileData();
+            loadAccountStats();
+            loadActiveSessions();
+            loadLoginHistory();
+            loadActivityLog();
+
+            // Password strength checker
+            $('#newPassword').on('input', function() {
+                checkPasswordStrength($(this).val());
+            });
+
+            $('#confirmPassword').on('input', function() {
+                checkPasswordMatch();
+            });
+        });
+
+        function loadProfileData() {
+            $.get('/api/client/profile', function(data) {
+                $('#profileName').text(data.contactPerson);
+                $('#profileCompany').text(data.companyName);
+                $('#profileMemberSince').text(`Member since ${formatDate(data.createdAt)}`);
+                $('#avatarInitials').text(getInitials(data.contactPerson));
+
+                // Personal info
+                $('#firstName').val(data.firstName);
+                $('#lastName').val(data.lastName);
+                $('#email').val(data.email);
+                $('#phone').val(data.phone);
+                $('#altPhone').val(data.altPhone || '');
+                $('#dob').val(data.dob);
+                $('#address').val(data.address);
+
+                // Company info
+                $('#companyName').val(data.companyName);
+                $('#industry').val(data.industry);
+                $('#companySize').val(data.companySize);
+                $('#website').val(data.website);
+                $('#taxId').val(data.taxId);
+                $('#billingAddress').val(data.billingAddress);
+                $('#shippingAddress').val(data.shippingAddress);
+            });
+        }
+
+        function loadAccountStats() {
+            $.get('/api/client/profile/stats', function(stats) {
+                $('#statProjects').text(stats.totalProjects);
+                $('#statActiveProjects').text(stats.activeProjects);
+                $('#statInvoices').text(stats.totalInvoices);
+                $('#statDocuments').text(stats.totalDocuments);
+                $('#statMessages').text(stats.unreadMessages);
+            });
+        }
+
+        function loadActiveSessions() {
+            const sessions = [
+                { device: 'Chrome on Windows', ip: '192.168.1.100', location: 'San Francisco, CA', current: true },
+                { device: 'Safari on iPhone', ip: '192.168.1.101', location: 'San Francisco, CA', current: false }
+            ];
+
+            let html = '';
+            sessions.forEach(s => {
+                html += `
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="bi bi-${s.current ? 'laptop' : 'phone'} me-2"></i>
+                            <strong>${s.device}</strong>
+                            <br>
+                            <small class="text-muted">${s.ip} • ${s.location}</small>
+                        </div>
+                        <div>
+                            ${s.current ? '<span class="badge bg-success me-2">Current</span>' : ''}
+                            <button class="btn btn-sm btn-outline-danger" onclick="revokeSession('${s.ip}')">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            $('#activeSessions').html(html);
+        }
+
+        function loadLoginHistory() {
+            const history = [
+                { date: '2024-03-15 10:30:00', ip: '192.168.1.100', device: 'Chrome on Windows', location: 'San Francisco, CA' },
+                { date: '2024-03-14 09:15:00', ip: '192.168.1.101', device: 'Safari on iPhone', location: 'San Francisco, CA' },
+                { date: '2024-03-13 14:20:00', ip: '192.168.1.102', device: 'Firefox on Mac', location: 'San Francisco, CA' }
+            ];
+
+            let html = '';
+            history.forEach(h => {
+                html += `
+                    <tr>
+                        <td>${h.date}</td>
+                        <td>${h.ip}</td>
+                        <td>${h.device}</td>
+                        <td>${h.location}</td>
+                    </tr>
+                `;
+            });
+            $('#loginHistory').html(html);
+        }
+
+        function loadActivityLog() {
+            const activities = [
+                { action: 'Logged in', date: '2024-03-15 10:30:00', icon: 'box-arrow-in-right', color: 'success' },
+                { action: 'Viewed project "E-commerce Website"', date: '2024-03-15 11:00:00', icon: 'folder', color: 'primary' },
+                { action: 'Downloaded invoice INV-2024-001', date: '2024-03-14 15:30:00', icon: 'download', color: 'info' },
+                { action: 'Sent message to project team', date: '2024-03-14 14:00:00', icon: 'envelope', color: 'warning' }
+            ];
+
+            let html = '';
+            activities.forEach(a => {
+                html += `
+                    <div class="timeline-item">
+                        <div class="d-flex">
+                            <div class="timeline-icon bg-${a.color} bg-opacity-10 text-${a.color} me-3">
+                                <i class="bi bi-${a.icon}"></i>
+                            </div>
+                            <div>
+                                <strong>${a.action}</strong>
+                                <br>
+                                <small class="text-muted">${a.date}</small>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            $('#activityTimeline').html(html);
+        }
+
+        function editProfile() {
+            $('#editFirstName').val($('#firstName').val());
+            $('#editLastName').val($('#lastName').val());
+            $('#editPhone').val($('#phone').val());
+            $('#editAltPhone').val($('#altPhone').val());
+            $('#editDob').val($('#dob').val());
+            $('#editAddress').val($('#address').val());
+
+            $('#editProfileModal').modal('show');
+        }
+
+        function saveProfile() {
+            const profileData = {
+                firstName: $('#editFirstName').val(),
+                lastName: $('#editLastName').val(),
+                phone: $('#editPhone').val(),
+                altPhone: $('#editAltPhone').val(),
+                dob: $('#editDob').val(),
+                address: $('#editAddress').val()
+            };
+
+            $.ajax({
+                url: '/api/client/profile',
+                type: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(profileData),
+                success: function() {
+                    $('#editProfileModal').modal('hide');
+                    loadProfileData();
+                    showNotification('Profile updated successfully', 'success');
+                },
+                error: function(xhr) {
+                    showNotification('Error updating profile: ' + xhr.responseText, 'error');
+                }
+            });
+        }
+
+        function changePassword() {
+            $('#changePasswordForm')[0].reset();
+            $('#changePasswordModal').modal('show');
+        }
+
+        function checkPasswordStrength(password) {
+            let strength = 0;
+            if (password.length >= 8) strength += 25;
+            if (password.match(/[a-z]+/)) strength += 25;
+            if (password.match(/[A-Z]+/)) strength += 25;
+            if (password.match(/[0-9]+/)) strength += 25;
+
+            $('#passwordStrength').css('width', strength + '%');
+            $('#passwordStrength').removeClass('bg-danger bg-warning bg-success');
+
+            if (strength < 50) {
+                $('#passwordStrength').addClass('bg-danger');
+            } else if (strength < 75) {
+                $('#passwordStrength').addClass('bg-warning');
+            } else {
+                $('#passwordStrength').addClass('bg-success');
+            }
+        }
+
+        function checkPasswordMatch() {
+            const newPass = $('#newPassword').val();
+            const confirmPass = $('#confirmPassword').val();
+
+            if (newPass && confirmPass) {
+                if (newPass === confirmPass) {
+                    $('#confirmPassword').removeClass('is-invalid').addClass('is-valid');
+                    $('#passwordMatchFeedback').hide();
+                } else {
+                    $('#confirmPassword').removeClass('is-valid').addClass('is-invalid');
+                    $('#passwordMatchFeedback').text('Passwords do not match').show();
+                }
+            }
+        }
+
+        function updatePassword() {
+            const newPass = $('#newPassword').val();
+            const confirmPass = $('#confirmPassword').val();
+
+            if (newPass !== confirmPass) {
+                showNotification('Passwords do not match', 'error');
+                return;
+            }
+
+            const passwordData = {
+                currentPassword: $('#currentPassword').val(),
+                newPassword: newPass
+            };
+
+            $.ajax({
+                url: '/api/client/profile/change-password',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(passwordData),
+                success: function() {
+                    $('#changePasswordModal').modal('hide');
+                    showNotification('Password changed successfully', 'success');
+                },
+                error: function(xhr) {
+                    showNotification('Error changing password: ' + xhr.responseText, 'error');
+                }
+            });
+        }
+
+        function changePhoto() {
+            $('#changePhotoModal').modal('show');
+        }
+
+        function previewPhoto() {
+            const file = $('#photoUpload')[0].files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#photoPreview').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function uploadPhoto() {
+            const formData = new FormData();
+            formData.append('photo', $('#photoUpload')[0].files[0]);
+
+            $.ajax({
+                url: '/api/client/profile/upload-photo',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function() {
+                    $('#changePhotoModal').modal('hide');
+                    loadProfileData();
+                    showNotification('Photo updated successfully', 'success');
+                },
+                error: function(xhr) {
+                    showNotification('Error uploading photo: ' + xhr.responseText, 'error');
+                }
+            });
+        }
+
+        function savePreferences() {
+            const preferences = {
+                notifications: {
+                    projectUpdates: $('#notifyProjectUpdates').is(':checked'),
+                    invoices: $('#notifyInvoices').is(':checked'),
+                    messages: $('#notifyMessages').is(':checked'),
+                    marketing: $('#notifyMarketing').is(':checked')
+                },
+                language: $('#language').val(),
+                timezone: $('#timezone').val(),
+                dateFormat: $('#dateFormat').val()
+            };
+
+            $.ajax({
+                url: '/api/client/profile/preferences',
+                type: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(preferences),
+                success: function() {
+                    showNotification('Preferences saved', 'success');
+                },
+                error: function(xhr) {
+                    showNotification('Error saving preferences: ' + xhr.responseText, 'error');
+                }
+            });
+        }
+
+        function enable2FA() {
+            alert('Two-factor authentication setup would be initiated');
+        }
+
+        function revokeSession(ip) {
+            if (confirm('Revoke this session?')) {
+                showNotification('Session revoked', 'success');
+            }
+        }
+
+        function deleteAccount() {
+            if (confirm('Are you absolutely sure? This action cannot be undone.')) {
+                if (confirm('Type "DELETE" to confirm')) {
+                    showNotification('Account deletion request submitted', 'warning');
+                }
+            }
+        }
+
+        function loadMoreActivity() {
+            showNotification('Loading more activity...', 'info');
+        }
+
+        function getInitials(name) {
+            return name.split(' ').map(n => n[0]).join('').toUpperCase();
+        }
+
+        function formatDate(dateString) {
+            return new Date(dateString).toLocaleDateString('en-US', {
+                month: 'short',
+                year: 'numeric'
+            });
+        }
+
+        function showNotification(message, type) {
+            alert(message);
+        }
+    </script>
+}

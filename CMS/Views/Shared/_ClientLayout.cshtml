@@ -271,35 +271,35 @@
 
             <ul class="list-unstyled components">
                 <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "Client" && ViewContext.RouteData.Values["action"].ToString() == "Index" ? "active" : "")">
-                    <a href="@Url.Action("Index", "Client")">
+                    <a href="@Url.Action("Dashboard", "Client")">
                         <i class="bi bi-speedometer2"></i> Dashboard
                     </a>
                 </li>
                 <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "ClientProject" ? "active" : "")">
-                    <a href="@Url.Action("Index", "ClientProject")">
+                    <a href="@Url.Action("Projects", "Client")">
                         <i class="bi bi-folder"></i> My Projects
                         <span class="badge bg-warning float-end" id="projectCount">3</span>
                     </a>
                 </li>
                 <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "ClientInvoice" ? "active" : "")">
-                    <a href="@Url.Action("Index", "ClientInvoice")">
+                    <a href="@Url.Action("Invoices", "Client")">
                         <i class="bi bi-receipt"></i> Invoices
                         <span class="badge bg-danger float-end" id="invoiceCount">2</span>
                     </a>
                 </li>
                 <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "ClientMessage" ? "active" : "")">
-                    <a href="@Url.Action("Index", "ClientMessage")">
+                    <a href="@Url.Action("Messages", "Client")">
                         <i class="bi bi-chat-dots"></i> Messages
                         <span class="badge bg-primary float-end" id="messageCount">5</span>
                     </a>
                 </li>
                 <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "ClientReport" ? "active" : "")">
-                    <a href="@Url.Action("Index", "ClientReport")">
+                    <a href="@Url.Action("Reports", "Client")">
                         <i class="bi bi-file-text"></i> Reports
                     </a>
                 </li>
                 <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "ClientDocument" ? "active" : "")">
-                    <a href="@Url.Action("Index", "ClientDocument")">
+                    <a href="@Url.Action("Documents", "")">
                         <i class="bi bi-files"></i> Documents
                     </a>
                 </li>

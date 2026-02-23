@@ -1,0 +1,446 @@
+﻿@{
+    ViewData["Title"] = "Messages";
+    Layout = "_ClientLayout";
+}
+
+<div class="container-fluid">
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="h3">
+            <i class="bi bi-chat-dots text-info me-2"></i>Messages
+        </h2>
+        <button class="btn btn-primary" onclick="composeMessage()">
+            <i class="bi bi-pencil-square"></i> Compose
+        </button>
+    </div>
+
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3">
+            <!-- Compose Button -->
+            <button class="btn btn-primary w-100 mb-3" onclick="composeMessage()">
+                <i class="bi bi-pencil"></i> New Message
+            </button>
+
+            <!-- Folders -->
+            <div class="card shadow-sm mb-3">
+                <div class="list-group list-group-flush">
+                    <a href="#" class="list-group-item list-group-item-action active" onclick="loadMessages('inbox')">
+                        <i class="bi bi-inbox me-2"></i> Inbox
+                        <span class="badge bg-danger float-end" id="inboxCount">0</span>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action" onclick="loadMessages('sent')">
+                        <i class="bi bi-send me-2"></i> Sent
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action" onclick="loadMessages('urgent')">
+                        <i class="bi bi-exclamation-triangle me-2"></i> Urgent
+                        <span class="badge bg-warning float-end" id="urgentCount">0</span>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action" onclick="loadMessages('archived')">
+                        <i class="bi bi-archive me-2"></i> Archived
+                    </a>
+                </div>
+            </div>
+
+            <!-- Projects Filter -->
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <h6 class="mb-0">Filter by Project</h6>
+                </div>
+                <div class="list-group list-group-flush" id="projectFilter">
+                    <!-- Projects will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Message List -->
+        <div class="col-md-9">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <h5 class="mb-0" id="folderTitle">Inbox</h5>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="searchMessages"
+                                   placeholder="Search messages...">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush" id="messagesList">
+                        <!-- Messages will be loaded here -->
+                    </div>
+                    <div class="text-center p-3" id="messagesLoading" style="display: none;">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Compose Message Modal -->
+<div class="modal fade" id="composeModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Compose Message</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="composeForm">
+                    <div class="mb-3">
+                        <label class="form-label">Subject</label>
+                        <input type="text" class="form-control" id="composeSubject" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Related Project (Optional)</label>
+                        <select class="form-select" id="composeProject">
+                            <option value="">General Inquiry</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Message</label>
+                        <textarea class="form-control" id="composeMessage" rows="8" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Attachments</label>
+                        <input type="file" class="form-control" id="composeAttachments" multiple>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="markUrgent">
+                        <label class="form-check-label">
+                            Mark as Urgent
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="sendMessage()">
+                    <i class="bi bi-send"></i> Send Message
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Message View Modal -->
+<div class="modal fade" id="messageViewModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="messageViewSubject"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex justify-content-between mb-3">
+                    <div>
+                        <strong>From:</strong> <span id="messageViewSender"></span>
+                        <br>
+                        <strong>Date:</strong> <span id="messageViewDate"></span>
+                    </div>
+                    <div>
+                        <span class="badge bg-warning" id="messageViewUrgent" style="display: none;">Urgent</span>
+                        <span class="badge bg-info" id="messageViewProject"></span>
+                    </div>
+                </div>
+                <div class="border-top pt-3 mb-3" id="messageViewContent">
+                </div>
+                <div class="border-top pt-3">
+                    <h6>Attachments</h6>
+                    <div id="messageViewAttachments"></div>
+                </div>
+                <div class="border-top pt-3 mt-3">
+                    <h6>Reply</h6>
+                    <textarea class="form-control" id="replyContent" rows="4" placeholder="Type your reply..."></textarea>
+                    <div class="mt-2">
+                        <button class="btn btn-primary" onclick="sendReply()">
+                            <i class="bi bi-reply"></i> Send Reply
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let currentFolder = 'inbox';
+        let currentPage = 1;
+        let currentMessageId = null;
+
+        $(document).ready(function() {
+            loadMessages('inbox');
+            loadProjectsForFilter();
+            loadProjectsForSelect();
+            loadCounts();
+        });
+
+        function loadMessages(folder, page = 1) {
+            currentFolder = folder;
+            currentPage = page;
+
+            $('#folderTitle').text(folder.charAt(0).toUpperCase() + folder.slice(1));
+            $('#messagesList').html('');
+            $('#messagesLoading').show();
+
+            $.get(`/api/client/messages?folder=${folder}&page=${page}`, function(data) {
+                $('#messagesLoading').hide();
+                displayMessages(data.messages);
+                updatePagination(data.totalPages, data.currentPage);
+            });
+        }
+
+        function displayMessages(messages) {
+            let html = '';
+            messages.forEach(msg => {
+                let urgentClass = msg.isUrgent ? 'border-start border-danger border-4' : '';
+                let readClass = msg.isRead ? '' : 'fw-bold bg-light';
+
+                html += `
+                    <a href="#" class="list-group-item list-group-item-action ${urgentClass} ${readClass}"
+                       onclick="viewMessage(${msg.id})">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">${msg.subject}</h6>
+                            <small class="text-muted">${timeAgo(msg.sentAt)}</small>
+                        </div>
+                        <p class="mb-1 text-truncate">${msg.message}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-primary">${msg.sender}</small>
+                            <div>
+                                ${msg.isUrgent ? '<span class="badge bg-danger me-1">Urgent</span>' : ''}
+                                ${msg.hasAttachments ? '<i class="bi bi-paperclip text-muted"></i>' : ''}
+                                ${msg.replyCount > 0 ? `<span class="badge bg-secondary ms-1">${msg.replyCount}</span>` : ''}
+                            </div>
+                        </div>
+                    </a>
+                `;
+            });
+
+            if (messages.length === 0) {
+                html = '<div class="text-center p-4 text-muted">No messages found</div>';
+            }
+
+            $('#messagesList').html(html);
+        }
+
+        function viewMessage(id) {
+            currentMessageId = id;
+
+            $.get(`/api/client/messages/${id}`, function(msg) {
+                $('#messageViewSubject').text(msg.subject);
+                $('#messageViewSender').text(msg.sender?.name || 'System');
+                $('#messageViewDate').text(formatDateTime(msg.sentAt));
+                $('#messageViewContent').html(msg.message.replace(/\n/g, '<br>'));
+
+                if (msg.isUrgent) {
+                    $('#messageViewUrgent').show();
+                } else {
+                    $('#messageViewUrgent').hide();
+                }
+
+                if (msg.project) {
+                    $('#messageViewProject').text(msg.project.name).show();
+                } else {
+                    $('#messageViewProject').hide();
+                }
+
+                // Display attachments
+                let attachmentsHtml = '';
+                if (msg.attachments && msg.attachments.length > 0) {
+                    msg.attachments.forEach(att => {
+                        attachmentsHtml += `
+                            <div class="d-inline-block me-2 mb-2">
+                                <button class="btn btn-sm btn-outline-primary" onclick="downloadAttachment(${att.id})">
+                                    <i class="bi bi-paperclip"></i> ${att.fileName} (${formatFileSize(att.fileSize)})
+                                </button>
+                            </div>
+                        `;
+                    });
+                } else {
+                    attachmentsHtml = '<p class="text-muted">No attachments</p>';
+                }
+                $('#messageViewAttachments').html(attachmentsHtml);
+
+                // Display replies
+                let repliesHtml = '';
+                if (msg.replies && msg.replies.length > 0) {
+                    repliesHtml = '<h6 class="mt-4">Previous Replies</h6>';
+                    msg.replies.forEach(reply => {
+                        repliesHtml += `
+                            <div class="card mb-2 bg-light">
+                                <div class="card-body py-2">
+                                    <div class="d-flex justify-content-between">
+                                        <strong>${reply.sender}</strong>
+                                        <small class="text-muted">${timeAgo(reply.sentAt)}</small>
+                                    </div>
+                                    <p class="mb-0">${reply.content}</p>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    $('#messageViewContent').after(repliesHtml);
+                }
+
+                $('#messageViewModal').modal('show');
+            });
+        }
+
+        function sendReply() {
+            const reply = {
+                messageId: currentMessageId,
+                content: $('#replyContent').val()
+            };
+
+            if (!reply.content) {
+                alert('Please enter a reply');
+                return;
+            }
+
+            $.ajax({
+                url: `/api/client/messages/${currentMessageId}/reply`,
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(reply),
+                success: function() {
+                    $('#replyContent').val('');
+                    $('#messageViewModal').modal('hide');
+                    loadMessages(currentFolder, currentPage);
+                    showNotification('Reply sent successfully', 'success');
+                },
+                error: function(xhr) {
+                    showNotification('Error sending reply: ' + xhr.responseText, 'error');
+                }
+            });
+        }
+
+        function composeMessage() {
+            $('#composeForm')[0].reset();
+            $('#composeModal').modal('show');
+        }
+
+        function sendMessage() {
+            const formData = new FormData();
+            formData.append('subject', $('#composeSubject').val());
+            formData.append('message', $('#composeMessage').val());
+            formData.append('projectId', $('#composeProject').val());
+            formData.append('isUrgent', $('#markUrgent').is(':checked'));
+
+            const attachments = $('#composeAttachments')[0].files;
+            for (let i = 0; i < attachments.length; i++) {
+                formData.append('attachments', attachments[i]);
+            }
+
+            if (!$('#composeSubject').val() || !$('#composeMessage').val()) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            $.ajax({
+                url: '/api/client/messages',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function() {
+                    $('#composeModal').modal('hide');
+                    $('#composeForm')[0].reset();
+                    loadMessages('inbox');
+                    showNotification('Message sent successfully', 'success');
+                },
+                error: function(xhr) {
+                    showNotification('Error sending message: ' + xhr.responseText, 'error');
+                }
+            });
+        }
+
+        function loadProjectsForFilter() {
+            $.get('/api/client/projects/all', function(projects) {
+                let html = '<a href="#" class="list-group-item list-group-item-action active" onclick="filterByProject(null)">All Projects</a>';
+                projects.forEach(p => {
+                    html += `<a href="#" class="list-group-item list-group-item-action" onclick="filterByProject(${p.id})">${p.projectName}</a>`;
+                });
+                $('#projectFilter').html(html);
+            });
+        }
+
+        function loadProjectsForSelect() {
+            $.get('/api/client/projects/all', function(projects) {
+                let options = '<option value="">General Inquiry</option>';
+                projects.forEach(p => {
+                    options += `<option value="${p.id}">${p.projectName}</option>`;
+                });
+                $('#composeProject').html(options);
+            });
+        }
+
+        function loadCounts() {
+            $.get('/api/client/messages/counts', function(counts) {
+                $('#inboxCount').text(counts.inbox);
+                $('#urgentCount').text(counts.urgent);
+            });
+        }
+
+        function filterByProject(projectId) {
+            // Implement project filtering
+            $('.list-group-item').removeClass('active');
+            $(event.target).addClass('active');
+            loadMessages('inbox');
+        }
+
+        function downloadAttachment(id) {
+            window.location.href = `/api/client/messages/attachment/${id}`;
+        }
+
+        function updatePagination(totalPages, currentPage) {
+            // Implement pagination if needed
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / 1048576).toFixed(1) + ' MB';
+        }
+
+        function formatDateTime(dateString) {
+            return new Date(dateString).toLocaleString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function timeAgo(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffSeconds = Math.floor((now - date) / 1000);
+            const diffMinutes = Math.floor(diffSeconds / 60);
+            const diffHours = Math.floor(diffMinutes / 60);
+            const diffDays = Math.floor(diffHours / 24);
+
+            if (diffDays > 7) return formatDate(dateString);
+            if (diffDays > 0) return diffDays + 'd ago';
+            if (diffHours > 0) return diffHours + 'h ago';
+            if (diffMinutes > 0) return diffMinutes + 'm ago';
+            return 'just now';
+        }
+
+        function formatDate(dateString) {
+            return new Date(dateString).toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        function showNotification(message, type) {
+            alert(message);
+        }
+    </script>
+}

@@ -1,50 +1,1158 @@
-﻿<!DOCTYPE html>
+﻿<!-- Views/Shared/_LandingLayout.cshtml -->
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - CMS</title>
-    <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/CMS.styles.css" asp-append-version="true" />
+    <title>@ViewData["Title"] - Welcom To GikaruTechs</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #4e73df;
+            --secondary-color: #1cc88a;
+            --accent-color: #36b9cc;
+            --dark-color: #5a5c69;
+            --light-color: #f8f9fc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: transparent;
+            padding: 20px 0;
+            transition: all 0.3s ease;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+            .navbar.scrolled {
+                background: white;
+                box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+                padding: 15px 0;
+            }
+
+        .navbar-brand {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary-color) !important;
+            letter-spacing: 1px;
+        }
+
+        .navbar-nav .nav-link {
+            color: #333 !important;
+            font-weight: 600;
+            margin: 0 15px;
+            position: relative;
+            padding: 5px 0;
+        }
+
+            .navbar-nav .nav-link::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 0;
+                height: 2px;
+                background: var(--primary-color);
+                transition: width 0.3s ease;
+            }
+
+            .navbar-nav .nav-link:hover::after {
+                width: 100%;
+            }
+
+        .btn-login {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 8px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+        }
+
+            .btn-login:hover {
+                background: var(--primary-color);
+                color: white;
+                transform: translateY(-2px);
+            }
+
+        .btn-register {
+            background: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            color: white;
+            padding: 8px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+            .btn-register:hover {
+                background: transparent;
+                color: var(--primary-color);
+                transform: translateY(-2px);
+            }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+        }
+
+            .hero::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: url('/images/pattern.png') repeat;
+                opacity: 0.1;
+                animation: moveBackground 20s linear infinite;
+            }
+
+        @@keyframes moveBackground {
+            from {
+                transform: translateX(0) translateY(0);
+            }
+
+            to {
+                transform: translateX(100px) translateY(100px);
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons .btn {
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            margin-right: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-get-started {
+            background: white;
+            color: var(--primary-color);
+            border: none;
+        }
+
+            .btn-get-started:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            }
+
+        .btn-watch-video {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+            .btn-watch-video:hover {
+                background: white;
+                color: var(--primary-color);
+                transform: translateY(-3px);
+            }
+
+        .hero-image {
+            position: relative;
+            z-index: 2;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @@keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: var(--light-color);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+            .section-title h2 {
+                font-size: 2.5rem;
+                font-weight: 700;
+                color: #333;
+                margin-bottom: 15px;
+            }
+
+            .section-title p {
+                font-size: 1.1rem;
+                color: #666;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+        .feature-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .feature-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            }
+
+            .feature-card::before {
+                content: '';
+                position: absolute;
+                top: -50px;
+                right: -50px;
+                width: 100px;
+                height: 100px;
+                background: var(--primary-color);
+                opacity: 0.1;
+                border-radius: 50%;
+                transition: all 0.3s ease;
+            }
+
+            .feature-card:hover::before {
+                transform: scale(3);
+            }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 2;
+        }
+
+            .feature-icon i {
+                font-size: 40px;
+                color: white;
+            }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+            .feature-link i {
+                margin-left: 5px;
+                transition: transform 0.3s ease;
+            }
+
+            .feature-link:hover i {
+                transform: translateX(5px);
+            }
+
+        /* About Section */
+        .about {
+            padding: 100px 0;
+        }
+
+        .about-image {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+            .about-image img {
+                width: 100%;
+                height: auto;
+                transition: transform 0.5s ease;
+            }
+
+            .about-image:hover img {
+                transform: scale(1.05);
+            }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .about-content p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .about-stats {
+            display: flex;
+            margin-top: 40px;
+        }
+
+        .stat-item {
+            flex: 1;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            display: block;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecf2 100%);
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+            .service-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+            .service-icon i {
+                font-size: 30px;
+                color: white;
+            }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+
+            .pricing-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            }
+
+            .pricing-card.popular {
+                border: 2px solid var(--primary-color);
+            }
+
+        .popular-badge {
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+            .pricing-header h3 {
+                font-size: 1.8rem;
+                font-weight: 700;
+                margin-bottom: 15px;
+            }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary-color);
+        }
+
+            .price span {
+                font-size: 1rem;
+                color: #666;
+                font-weight: 400;
+            }
+
+        .pricing-features {
+            list-style: none;
+            padding: 0;
+            margin: 30px 0;
+        }
+
+            .pricing-features li {
+                padding: 10px 0;
+                border-bottom: 1px solid #eee;
+            }
+
+                .pricing-features li i {
+                    color: var(--secondary-color);
+                    margin-right: 10px;
+                }
+
+        .btn-pricing {
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+            .btn-pricing:hover {
+                background: #2e59d9;
+                transform: translateY(-2px);
+            }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .testimonial-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px 0;
+        }
+
+        .testimonial-content {
+            font-size: 1.1rem;
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+
+            .author-avatar img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+        .author-info h5 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .author-info p {
+            margin: 0;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+        }
+
+            .cta h2 {
+                font-size: 2.5rem;
+                font-weight: 700;
+                margin-bottom: 20px;
+            }
+
+            .cta p {
+                font-size: 1.2rem;
+                opacity: 0.9;
+                margin-bottom: 30px;
+            }
+
+        .btn-cta {
+            background: white;
+            color: var(--primary-color);
+            padding: 15px 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+            .btn-cta:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            }
+
+        /* Footer */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+            .footer h5 {
+                font-size: 1.2rem;
+                font-weight: 600;
+                margin-bottom: 25px;
+                position: relative;
+                padding-bottom: 10px;
+            }
+
+                .footer h5::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 50px;
+                    height: 2px;
+                    background: var(--primary-color);
+                }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+            .footer-links li {
+                margin-bottom: 10px;
+            }
+
+            .footer-links a {
+                color: rgba(255,255,255,0.7);
+                text-decoration: none;
+                transition: all 0.3s ease;
+            }
+
+                .footer-links a:hover {
+                    color: white;
+                    padding-left: 5px;
+                }
+
+        .social-links {
+            margin-top: 20px;
+        }
+
+            .social-links a {
+                display: inline-block;
+                width: 40px;
+                height: 40px;
+                background: rgba(255,255,255,0.1);
+                border-radius: 50%;
+                text-align: center;
+                line-height: 40px;
+                color: white;
+                margin-right: 10px;
+                transition: all 0.3s ease;
+            }
+
+                .social-links a:hover {
+                    background: var(--primary-color);
+                    transform: translateY(-3px);
+                }
+
+        .footer-bottom {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Login Modal */
+        .modal-content {
+            border-radius: 20px;
+            border: none;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 20px 20px 0 0;
+            padding: 20px 30px;
+        }
+
+            .modal-header .btn-close {
+                filter: brightness(0) invert(1);
+            }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .form-floating {
+            margin-bottom: 20px;
+        }
+
+            .form-floating input {
+                border-radius: 10px;
+                border: 1px solid #e0e0e0;
+                padding: 15px;
+            }
+
+                .form-floating input:focus {
+                    border-color: var(--primary-color);
+                    box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+                }
+
+        .btn-login-submit {
+            background: var(--primary-color);
+            color: white;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            width: 100%;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+            .btn-login-submit:hover {
+                background: #2e59d9;
+                transform: translateY(-2px);
+            }
+
+        .forgot-password {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+            .forgot-password a {
+                color: #666;
+                text-decoration: none;
+            }
+
+                .forgot-password a:hover {
+                    color: var(--primary-color);
+                }
+
+        /* Loading Spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @@keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive */
+        @@media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-buttons .btn {
+                display: block;
+                margin: 10px 0;
+            }
+
+            .navbar-nav {
+                background: white;
+                padding: 20px;
+                border-radius: 10px;
+                margin-top: 10px;
+            }
+
+            .nav-buttons {
+                margin-top: 10px;
+            }
+
+            .btn-login, .btn-register {
+                display: block;
+                margin: 10px 0;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CMS</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        
-                    </ul>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                <i class="fas fa-rocket me-2"></i>Gikaru Tech
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#pricing">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+                <div class="nav-buttons ms-lg-3">
+                    <button class="btn-login" onclick="showLoginModal()">
+                        <i class="fas fa-sign-in-alt me-2"></i>Login
+                    </button>
+                    <button class="btn-register" onclick="showRegisterModal()">
+                        <i class="fas fa-user-plus me-2"></i>Register
+                    </button>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+        </div>
+    </nav>
 
-    <footer class="border-top footer text-muted">
+    <!-- Main Content -->
+    @RenderBody()
+
+    <!-- Footer -->
+    <footer class="footer">
         <div class="container">
-            &copy; 2026 - CMS - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5>About Us</h5>
+                    <p>We provide innovative solutions to help businesses grow and succeed in the digital age.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Support</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h5>Newsletter</h5>
+                    <p>Subscribe to get updates on our latest offers!</p>
+                    <div class="input-group">
+                        <input type="email" class="form-control" placeholder="Your Email">
+                        <button class="btn btn-primary" type="button">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 GikaruTech. All rights reserved.</p>
+            </div>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Welcome Back!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm" onsubmit="event.preventDefault(); login();">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="loginEmail" placeholder="name@example.com" required>
+                            <label for="loginEmail">Email address</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="loginPassword" placeholder="Password" required>
+                            <label for="loginPassword">Password</label>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">Remember me</label>
+                        </div>
+                        <button type="submit" class="btn-login-submit" id="loginButton">
+                            <span class="spinner-border spinner-border-sm d-none" role="status" id="loginSpinner"></span>
+                            <span id="loginText">Login</span>
+                        </button>
+                        <div class="forgot-password">
+                            <a href="#" onclick="showForgotPassword()">Forgot Password?</a>
+                        </div>
+                    </form>
+                    <hr>
+                    <p class="text-center mb-0">
+                        Don't have an account?
+                        <a href="#" onclick="showRegisterModal()">Register here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal fade" id="registerModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create Your Account</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="registerForm" onsubmit="event.preventDefault(); register();">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="firstName" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="registerEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Company Name</label>
+                            <input type="text" class="form-control" id="companyName">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Password</label>
+                                <input type="password" class="form-control" id="registerPassword" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Confirm Password</label>
+                                <input type="password" class="form-control" id="confirmPassword" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Account Type</label>
+                            <select class="form-select" id="accountType" required>
+                                <option value="">Select Account Type</option>
+                                <option value="Client">Client - I want to hire services</option>
+                                <option value="Employee">Employee - I work for the company</option>
+                            </select>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="terms" required>
+                            <label class="form-check-label" for="terms">
+                                I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                            </label>
+                        </div>
+                        <button type="submit" class="btn-login-submit" id="registerButton">
+                            <span class="spinner-border spinner-border-sm d-none" role="status" id="registerSpinner"></span>
+                            <span id="registerText">Create Account</span>
+                        </button>
+                    </form>
+                    <hr>
+                    <p class="text-center mb-0">
+                        Already have an account?
+                        <a href="#" onclick="showLoginModal()">Login here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // Navbar scroll effect
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 100) {
+                $('#mainNav').addClass('scrolled');
+            } else {
+                $('#mainNav').removeClass('scrolled');
+            }
+        });
+
+        // Smooth scrolling
+        $('a[href*="#"]').on('click', function(e) {
+            e.preventDefault();
+            $('html, body').animate({
+                scrollTop: $($(this).attr('href')).offset().top - 70
+            }, 500);
+        });
+
+        // Show Login Modal
+        function showLoginModal() {
+            $('#registerModal').modal('hide');
+            $('#loginModal').modal('show');
+        }
+
+        // Show Register Modal
+        function showRegisterModal() {
+            $('#loginModal').modal('hide');
+            $('#registerModal').modal('show');
+        }
+
+        // Login function
+        function login() {
+            const email = $('#loginEmail').val();
+            const password = $('#loginPassword').val();
+
+            if (!email || !password) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            // Show loading spinner
+            $('#loginSpinner').removeClass('d-none');
+            $('#loginText').text('Logging in...');
+            $('#loginButton').prop('disabled', true);
+
+            // Simulate API call (replace with actual AJAX call)
+            setTimeout(() => {
+                // Mock authentication - replace with actual API call
+                if (email === 'admin@example.com') {
+                    window.location.href = '/Admin/Dashboard';
+                } else if (email === 'manager@example.com') {
+                    window.location.href = '/Manager/Dashboard';
+                } else if (email === 'client@example.com') {
+                    window.location.href = '/Client/Dashboard';
+                } else {
+                    // Demo purpose - redirect based on email domain
+                    if (email.includes('admin')) {
+                        window.location.href = '/Admin/Dashboard';
+                    } else if (email.includes('manager')) {
+                        window.location.href = '/Manager/Dashboard';
+                    } else {
+                        window.location.href = '/Client/Dashboard';
+                    }
+                }
+            }, 1500);
+
+            /* Actual AJAX call would look like this:
+            $.ajax({
+                url: '/api/auth/login',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ email, password }),
+                success: function(response) {
+                    if (response.role === 'Admin') {
+                        window.location.href = '/Admin/Dashboard';
+                    } else if (response.role === 'Manager') {
+                        window.location.href = '/Manager/Dashboard';
+                    } else if (response.role === 'Client') {
+                        window.location.href = '/Client/Dashboard';
+                    } else {
+                        window.location.href = '/Employee/Dashboard';
+                    }
+                },
+                error: function(xhr) {
+                    $('#loginSpinner').addClass('d-none');
+                    $('#loginText').text('Login');
+                    $('#loginButton').prop('disabled', false);
+                    alert('Login failed: ' + xhr.responseText);
+                }
+            });
+            */
+        }
+
+        // Register function
+        function register() {
+            const password = $('#registerPassword').val();
+            const confirmPassword = $('#confirmPassword').val();
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+
+            if (!$('#terms').is(':checked')) {
+                alert('Please agree to the Terms of Service');
+                return;
+            }
+
+            // Show loading spinner
+            $('#registerSpinner').removeClass('d-none');
+            $('#registerText').text('Creating account...');
+            $('#registerButton').prop('disabled', true);
+
+            // Simulate API call
+            setTimeout(() => {
+                $('#registerModal').modal('hide');
+                $('#registerForm')[0].reset();
+                $('#registerSpinner').addClass('d-none');
+                $('#registerText').text('Create Account');
+                $('#registerButton').prop('disabled', false);
+                alert('Registration successful! Please check your email to verify your account.');
+                showLoginModal();
+            }, 1500);
+        }
+
+        // Forgot Password
+        function showForgotPassword() {
+            $('#loginModal').modal('hide');
+            alert('Password reset link will be sent to your email');
+        }
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
